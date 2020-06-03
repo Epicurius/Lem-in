@@ -39,7 +39,7 @@ typedef struct		s_route
 	int		len;
 	int		is_ant;
 	struct s_route	*next;
-}			t_route;
+}					t_route;
 
 typedef	struct		s_lem_in
 {
@@ -62,6 +62,7 @@ typedef struct		s_bfs
 	struct	s_bfs	*next;
 }			t_bfs;
 
+int		read_input(t_lem_in *lem);
 void	bfs_value(t_lem_in *lem);
 void	trim_bfs(t_lem_in *lem);
 void	trim_forks(t_lem_in *lem);
@@ -89,4 +90,5 @@ void	print_map(t_lem_in *lem);
 void	input_copy(t_lem_in *lem, char *line);
 
 void	main_struct_free(t_lem_in *lem);
+
 #endif

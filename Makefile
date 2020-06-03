@@ -13,7 +13,8 @@ SRCS = ./srcs/read_input.c\
 	./srcs/free_lists.c\
 	./srcs/input_copy.c\
 	./srcs/error.c\
-	./srcs/print.c
+	./srcs/print.c\
+	./srcs/main.c
 
 OBJS = $(SRCS:.c=.o)
 INCLUDES = ./libft/libft.a
