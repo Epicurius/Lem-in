@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/03 09:35:30 by nneronin          #+#    #+#             */
-/*   Updated: 2020/06/03 09:46:57 by nneronin         ###   ########.fr       */
+/*   Updated: 2020/06/04 08:56:44 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,8 @@ int	read_input(t_lem_in *lem)
 	}
 	ft_strdel(&line);
 	read_rooms(line, lem);
+	lem->max[0] += 1;
+	lem->max[1] += 1;
 	free(line);
 	return (0);
 }

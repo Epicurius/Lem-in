@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 12:27:39 by nneronin          #+#    #+#             */
-/*   Updated: 2020/06/03 12:26:01 by nneronin         ###   ########.fr       */
+/*   Updated: 2020/06/04 11:36:02 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void		draw_map(t_lem_in *lem)
 	int	x;
 	int	size;
 	t_room *current;
-	current = NULL;
 
+	current = NULL;
 	size = (WIDTH / lem->max[1]) - ((WIDTH / lem->max[1]) / 2);
 	y = -1;
 	while (++y < lem->max[0])
@@ -101,47 +101,31 @@ void		draw_map(t_lem_in *lem)
 	}
 }
 
-double	line_calc(t_lem_in *lem, int cath[2], int xy[2])
+void		line(t_lem_in *lem, int *s, int *e)
 {
-	double pytha;
+	int		cath[2];
+	int		overflow[2];
+	int		xy[2];
 
-	pytha = sqrt(pow((mlx_arr->x2 - mlx_arr->x1), 2)
-			+ pow((mlx_arr->y2 - mlx_arr->y1), 2));
-	mlx_arr->cath[0] = (mlx_arr->y2 - mlx_arr->y1) < 0 ?
-		(mlx_arr->y2 - mlx_arr->y1) * -1 : (mlx_arr->y2 - mlx_arr->y1);
-	mlx_arr->cath[1] = (mlx_arr->x2 - mlx_arr->x1) < 0 ?
-		(mlx_arr->x2 - mlx_arr->x1) * -1 : (mlx_arr->x2 - mlx_arr->x1);
-	mlx_arr->xy[0] = mlx_arr->x1 < mlx_arr->x2 ? 1 : -1;
-	mlx_arr->xy[1] = mlx_arr->y1 < mlx_arr->y2 ? 1 : -1;
-	return (pytha);
-}
-
-void	line(t_lem_in *lem, t_room *s, t_room *e)
-{
-	int		i;
-	double	pytha;
-	int overflow[2];
-	int cath[2];
-	int xy[2];
-
-	i = 0;
-	pytha = line_calc(lem, cath, xy);
-
-	overflow[1] = mlx_arr->cath[1] - mlx_arr->cath[0];
-	while (mlx_arr->x1 != mlx_arr->x2 || mlx_arr->y1 != mlx_arr->y2)
+	cath[0] = (e[0] - s[0]) < 0 ? (e[0] - s[0]) * -1 : (e[0] - s[0]);
+	cath[1] = (e[1] - s[1]) < 0 ? (e[1] - s[1]) * -1 : (e[1] - s[1]);
+	xy[0] = s[1] < e[1] ? 1 : -1;
+	xy[1] = s[0] < e[0] ? 1 : -1;
+	overflow[1] = cath[1] - cath[0];
+	while (s[1] != e[1] || s[0] != e[0])
 	{
-		mlx_pixel_put(mlx_arr->mlx_ptr, mlx_arr->win_ptr, mlx_arr->x1,
-					mlx_arr->y1, 0xff00ff);
+		//if ((s[1] > 0 && s[1] < WIDTH) && (s[0] > 0 && s[0] < HEIGHT))
+		mlx_pixel_put(lem->pic, lem->win, s[1], s[0], 0xff00ff);
 		overflow[0] = overflow[1] * 2;
-		if (overflow[0] > -(mlx_arr->cath[0]))
+		if (overflow[0] > -cath[0])
 		{
-			overflow[1] -= mlx_arr->cath[0];
-			mlx_arr->x1 += mlx_arr->xy[0];
+			overflow[1] -= cath[0];
+			s[1] += xy[0];
 		}
-		else if (overflow[0] < mlx_arr->cath[0])
+		else if (overflow[0] < cath[0])
 		{
-			overflow[1] += mlx_arr->cath[1];
-			mlx_arr->y1 += mlx_arr->xy[1];
+			overflow[1] += cath[1];
+			s[0] += xy[1];
 		}
 	}
 }
@@ -149,27 +133,36 @@ void	line(t_lem_in *lem, t_room *s, t_room *e)
 void		draw_links(t_lem_in *lem)
 {
 	t_link *current;
-
+	int start[2];
+	int end[2];
+	int size;
+	
+	size = (WIDTH / lem->max[1]) - ((WIDTH / lem->max[1]) / 2);
 	current = lem->links;
 	while (current)
 	{
-		line(lem, current->start, current->end);
+		start[1] = (current->start->yx[1] * size) * 2;
+		start[0] = (current->start->yx[0] * size) * 2;
+		end[1] = (current->end->yx[1] * size) * 2;
+		end[0] = (current->end->yx[0] * size) * 2;
+		line(lem, start, end);
 		current = current->next;
 	}
 }
 
 int			draw(t_lem_in *lem)
 {
-	if (lem->pause == 0)
+	lem->pic = mlx_get_data_addr(lem->img, &(lem->bits_per_pixel),
+		&(lem->size_line), &(lem->endian));
+	background(lem);
+	draw_map(lem);
+	draw_links(lem);
+	if (lem->pause == 1)
 	{
-		lem->pic = mlx_get_data_addr(lem->img, &(lem->bits_per_pixel),
-			&(lem->size_line), &(lem->endian));
-		background(lem);
-		draw_map(lem);
-		draw_links(lem);
-		mlx_put_image_to_window(lem->mlx, lem->win, lem->img, 0, 0);
-		mlx_destroy_image(lem->mlx, lem->img);
-		lem->img = mlx_new_image(lem->mlx, WIDTH, HEIGHT);
+		read_moves(lem);
 	}
+	mlx_put_image_to_window(lem->mlx, lem->win, lem->img, 0, 0);
+	mlx_destroy_image(lem->mlx, lem->img);
+	lem->img = mlx_new_image(lem->mlx, WIDTH, HEIGHT);
 	return (0);
 }
