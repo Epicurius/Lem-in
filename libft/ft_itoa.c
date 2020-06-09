@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@stuent.hive.fi>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 13:18:53 by nneronin          #+#    #+#             */
-/*   Updated: 2020/06/09 08:32:38 by nneronin         ###   ########.fr       */
+/*   Updated: 2020/06/09 09:53:52 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ char	*ft_itoa(int nb)
 
 	n = nb;
 	i = ft_nbrlen(n);
-	if (!(str = ft_strnew(i)))
+	if (!(str = (char*)malloc(sizeof(char) * (i + 1))))
 		return (NULL);
+	str[i--] = '\0';
 	if (n == 0)
 		str[0] = 48;
 	else if (n < 0)

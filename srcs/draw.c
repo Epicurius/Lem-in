@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/01 12:27:39 by nneronin          #+#    #+#             */
-/*   Updated: 2020/06/09 07:06:29 by nneronin         ###   ########.fr       */
+/*   Updated: 2020/06/09 10:06:23 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ void		draw_values(t_lem_in *lem, t_room *current, int x, int y)
 	if (current->ants_in != 0)
 		mlx_string_put(lem->mlx, lem->win, (x * size) * 2 + (size / 3),
 			(y * size) * 2 + (size / 3), 0xFFFFFF, ants);
+	ft_strdel(&ants);
+	free(ants);
+	ants = ft_itoa(lem->move);
+	mlx_string_put(lem->mlx, lem->win, WIDTH - 20, HEIGHT - 20,  0xFFFFFF, ants);
 	ft_strdel(&ants);
 	free(ants);
 }

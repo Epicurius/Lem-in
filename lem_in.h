@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/09 07:22:37 by nneronin          #+#    #+#             */
-/*   Updated: 2020/06/09 07:28:59 by nneronin         ###   ########.fr       */
+/*   Updated: 2020/06/09 10:00:19 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef	struct		s_lem_in
 	int				max;
 	int				rgb;
 	int				enable_visuals;
+	int				move;
 }					t_lem_in;
 
 typedef struct		s_bfs

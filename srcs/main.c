@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/03 06:21:39 by nneronin          #+#    #+#             */
-/*   Updated: 2020/06/08 10:23:29 by nneronin         ###   ########.fr       */
+/*   Updated: 2020/06/09 09:59:52 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int			key_press(int key, t_lem_in *lem)
 	}
 	else if (key == 35 && lem->end->ants_in != lem->ants)
 	{
+		lem->move += 1;
 		move_everyone(lem);
 		move_from_start(lem);
 		draw(lem, 1);
@@ -55,6 +56,7 @@ void		visuals(t_lem_in *lem)
 
 void		main_part2(t_lem_in *lem)
 {
+	lem->move = 0;
 	read_input(lem);
 	lem->start->ants_in = lem->ants;
 	print_map(lem);
