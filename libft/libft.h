@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@stuent.hive.fi>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 11:56:18 by nneronin          #+#    #+#             */
-/*   Updated: 2020/06/08 09:23:17 by nneronin         ###   ########.fr       */
+/*   Updated: 2020/06/09 08:41:18 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 char				*ft_itoa(int n);
 
-char				*ft_reverse(char *s);
+char				*ft_strrev(char *s);
 int					ft_isupper(int c);
 size_t				ft_nbrlen(int nbr);
 int					ft_iswspace(int c);

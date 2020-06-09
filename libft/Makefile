@@ -6,7 +6,7 @@
 #    By: nneronin <nneronin@stuent.hive.fi>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 11:13:47 by nneronin          #+#    #+#              #
-#    Updated: 2020/06/08 09:23:07 by nneronin         ###   ########.fr        #
+#    Updated: 2020/06/09 08:40:49 by nneronin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ SRCS = ft_memset.c\
 	   ft_lstadd.c\
 	   ft_lstiter.c\
 	   ft_lstmap.c\
-	   ft_reverse.c\
+	   ft_strrev.c\
 	   ft_isupper.c\
 	   ft_nbrlen.c\
 	   ft_iswspace.c\

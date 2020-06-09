@@ -6,36 +6,34 @@
 /*   By: nneronin <nneronin@stuent.hive.fi>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 13:18:53 by nneronin          #+#    #+#             */
-/*   Updated: 2019/10/26 15:40:13 by nneronin         ###   ########.fr       */
+/*   Updated: 2020/06/09 08:32:38 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./libft.h"
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int nb)
 {
-	int		nbrcount;
 	int		i;
+	long	n;
 	char	*str;
-	int		neg;
 
-	i = 0;
-	nbrcount = ft_nbrlen(n);
-	if (!(str = ft_strnew(nbrcount)))
-		return (0);
-	if (n == -2147483648)
-		return (ft_strcpy(str, "-2147483648"));
-	neg = n < 0 ? -1 : 0;
-	n *= n < 0 ? -1 : 1;
-	while (nbrcount + neg > 0)
+	n = nb;
+	i = ft_nbrlen(n);
+	if (!(str = ft_strnew(i)))
+		return (NULL);
+	if (n == 0)
+		str[0] = 48;
+	else if (n < 0)
 	{
-		str[i] = (n % 10) + '0';
-		n = n / 10;
-		i++;
-		nbrcount--;
+		str[0] = '-';
+		n = n * -1;
 	}
-	neg == -1 ? str[i] = '-' : 0;
-	i += neg == -1 ? 1 : 0;
-	str = ft_reverse(str);
+	while (n > 0)
+	{
+		str[i] = 48 + (n % 10);
+		n = n / 10;
+		i--;
+	}
 	return (str);
 }

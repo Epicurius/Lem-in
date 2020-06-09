@@ -6,13 +6,13 @@
 /*   By: nneronin <nneronin@stuent.hive.fi>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 16:14:11 by nneronin          #+#    #+#             */
-/*   Updated: 2020/06/09 08:38:18 by nneronin         ###   ########.fr       */
+/*   Updated: 2020/06/09 08:40:11 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_reverse(char *s)
+char		*ft_strrev(char *s)
 {
 	char	tmp;
 	int		i;
