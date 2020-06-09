@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   align.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/08 09:26:34 by nneronin          #+#    #+#             */
+/*   Updated: 2020/06/08 09:26:47 by nneronin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../lem_in.h"
-#include <stdio.h>
 
 void		swap(t_room **start, t_room **end)
 {
@@ -18,7 +28,8 @@ void		align(t_lem_in *lem)
 	current = lem->links;
 	while (current)
 	{
-		if ((current->start->bfs_val > current->end->bfs_val) && current->used != -1)
+		if ((current->start->bfs_val > current->end->bfs_val)
+				&& current->used != -1)
 			swap(&current->start, &current->end);
 		current = current->next;
 	}

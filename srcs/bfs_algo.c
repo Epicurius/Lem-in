@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bfs_algo.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/08 09:28:59 by nneronin          #+#    #+#             */
+/*   Updated: 2020/06/08 09:29:15 by nneronin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../lem_in.h"
-#include <stdio.h>
 #include "../error_msg.h"
 
 t_bfs		*create_elem(t_room *room)
@@ -63,7 +73,7 @@ void		room_links(t_lem_in *lem, t_bfs **bfs, t_room *room)
 	}
 }
 
-void			bfs_value(t_lem_in *lem)
+void		bfs_value(t_lem_in *lem)
 {
 	t_bfs		*bfs;
 	t_bfs		*current;

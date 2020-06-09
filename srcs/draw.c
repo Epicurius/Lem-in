@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/03 06:47:05 by nneronin          #+#    #+#             */
-/*   Updated: 2020/06/03 07:53:13 by nneronin         ###   ########.fr       */
+/*   Created: 2020/06/01 12:27:39 by nneronin          #+#    #+#             */
+/*   Updated: 2020/06/09 07:06:29 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
-#include "../error_msg.h"
 
 void		square(int s_x, int s_y, int size, t_lem_in *lem)
 {
@@ -21,18 +20,17 @@ void		square(int s_x, int s_y, int size, t_lem_in *lem)
 
 	y = 0;
 	tmp = 0;
-	int rgb = 0xff00ff;
 	while (y < (size * 4))
 	{
 		x = 0;
 		while (x < (size * 4))
 		{
-			lem->vis->pic[x + tmp + ((s_y * WIDTH * 4) + (s_x * 4))] =
-				rgb;
-			lem->vis->pic[x + 1 + tmp + ((s_y * WIDTH * 4) + (s_x * 4))] =
-				rgb >> 8;
-			lem->vis->pic[x + 2 + tmp + ((s_y * WIDTH * 4) + (s_x * 4))] =
-				rgb >> 16;
+			lem->pic[x + tmp + ((s_y * WIDTH * 4) + (s_x * 4))] =
+				lem->rgb;
+			lem->pic[x + 1 + tmp + ((s_y * WIDTH * 4) + (s_x * 4))] =
+				lem->rgb >> 8;
+			lem->pic[x + 2 + tmp + ((s_y * WIDTH * 4) + (s_x * 4))] =
+				lem->rgb >> 16;
 			x += 4;
 		}
 		y += 4;
@@ -40,49 +38,87 @@ void		square(int s_x, int s_y, int size, t_lem_in *lem)
 	}
 }
 
-void		draw_map(t_lem_in *lem)
+t_room		*find_cords(t_lem_in *lem, int x, int y)
 {
-	int	y;
-	int	x;
-	int	size;
-	int	offset;
+	t_room *current;
 
-	size = ((WIDTH / 2) / (lem->max[1])) - 2;
-	offset = ((HEIGHT - (lem->max[0] * size) - (lem->max[0] * 2)) / 2);
+	current = lem->rooms;
+	while (current)
+	{
+		if (current->yx[1] == y && current->yx[0] == x)
+			return (current);
+		current = current->next;
+	}
+	return (NULL);
+}
+
+void		draw_values(t_lem_in *lem, t_room *current, int x, int y)
+{
+	int		size;
+	char	*ants;
+
+	ants = ft_itoa(current->ants_in);
+	size = (WIDTH / lem->max) - ((WIDTH / lem->max) / 2);
+	mlx_string_put(lem->mlx, lem->win, (x * size) * 2, (y * size) * 2,
+		0xFFFFFF, current->name);
+	if (current->ants_in != 0)
+		mlx_string_put(lem->mlx, lem->win, (x * size) * 2 + (size / 3),
+			(y * size) * 2 + (size / 3), 0xFFFFFF, ants);
+	ft_strdel(&ants);
+	free(ants);
+}
+
+void		draw_map(t_lem_in *lem, int i)
+{
+	int			y;
+	int			x;
+	int			size;
+	t_room		*current;
+
+	if (lem->enable_visuals != 1)
+		return ;
+	size = (WIDTH / lem->max) - ((WIDTH / lem->max) / 2);
 	y = -1;
-	while (++y < lem->max[0])
+	while (++y < lem->max)
 	{
 		x = -1;
-		while (++x < lem->max[1])
+		while (++x < lem->max)
 		{
-			square((x * size) + (x * 2) + 2, (y * size) + (y * 2) + offset,
-				size, lem);
+			lem->rgb = 0x66ffff;
+			current = find_cords(lem, y, x);
+			if (current != NULL)
+			{
+				if (current->type == START || current->type == END)
+					lem->rgb = current->type == START ? 0xffff00 : 0x66ff66;
+				draw_values(lem, current, x, y);
+				i == 0 ? square((x * size) * 2, (y * size) * 2, size, lem) : 0;
+			}
 		}
 	}
 }
 
-void		background(t_lem_in *lem)
+void		draw_links(t_lem_in *lem, int x)
 {
-	int	x;
-	int	color;
+	t_link	*current;
+	int		start[2];
+	int		end[2];
+	int		size;
 
-	color = 0x363636;
-	x = 0;
-	while (x < (HEIGHT * WIDTH * 4))
+	if (lem->enable_visuals != 1)
+		return ;
+	size = (WIDTH / lem->max) - ((WIDTH / lem->max) / 2);
+	current = lem->links;
+	while (current)
 	{
-		lem->vis->pic[x] = color;
-		x++;
+		if (current->used == -1 || x == 1)
+			lem->rgb = 0xFF0000;
+		else
+			lem->rgb = 0x00FF00;
+		start[1] = (current->start->yx[1] * size) * 2;
+		start[0] = (current->start->yx[0] * size) * 2;
+		end[1] = (current->end->yx[1] * size) * 2;
+		end[0] = (current->end->yx[0] * size) * 2;
+		line(lem, start, end);
+		current = current->next;
 	}
-}
-
-int			draw(t_lem_in *lem)
-{
-		lem->vis->pic = mlx_get_data_addr(lem->vis->img, &(lem->vis->bits_per_pixel),
-			&(lem->vis->size_line), &(lem->vis->endian));
-		background(lem);
-		//draw_map(lem);
-		mlx_put_image_to_window(lem->vis->mlx, lem->vis->win, lem->vis->img, 0, 0);
-		mlx_destroy_image(lem->vis->mlx, lem->vis->img);
-		lem->vis->img = mlx_new_image(lem->vis->mlx, WIDTH, HEIGHT);
-	return (0);
 }

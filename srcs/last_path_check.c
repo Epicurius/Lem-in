@@ -1,8 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   last_path_check.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/08 10:21:05 by nneronin          #+#    #+#             */
+/*   Updated: 2020/06/08 10:22:54 by nneronin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../lem_in.h"
-#include <stdio.h>
 
-int		last_chance(t_lem_in *lem, t_room *room)
+int			last_chance(t_lem_in *lem, t_room *room)
 {
 	t_link *current;
 

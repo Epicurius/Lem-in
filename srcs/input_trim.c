@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input_trim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/08 09:36:32 by nneronin          #+#    #+#             */
+/*   Updated: 2020/06/08 09:37:28 by nneronin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../lem_in.h"
-#include <stdio.h>
 
 t_link		*find_link(t_lem_in *lem, t_room *s, t_room *e)
 {
@@ -17,7 +27,7 @@ t_link		*find_link(t_lem_in *lem, t_room *s, t_room *e)
 	return (NULL);
 }
 
-int		reaches_start(t_lem_in *lem, t_link *link)
+int			reaches_start(t_lem_in *lem, t_link *link)
 {
 	if (link->start == lem->start)
 		return (0);
@@ -49,8 +59,8 @@ void		find_optimal_fork(t_lem_in *lem, t_room *room)
 
 void		trim_input(t_lem_in *lem)
 {
+	int		x;
 	t_room	*current;
-	int	x;
 
 	x = 1;
 	while (x <= lem->max_bfs)
@@ -64,5 +74,4 @@ void		trim_input(t_lem_in *lem)
 		}
 		x++;
 	}
-
 }

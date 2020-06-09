@@ -1,15 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/08 09:32:59 by nneronin          #+#    #+#             */
+/*   Updated: 2020/06/08 09:33:09 by nneronin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../lem_in.h"
 #include <errno.h>
-#include <stdio.h>
 
-void		error_msg(char *str)
+void	error_msg(char *str)
 {
-	if (errno != 0)
-		perror(str);
-	else
-		ft_putendl_fd(str, 2);
-	//sleep(4);
+	ft_putendl_fd(str, 2);
 	exit(0);
 }
 

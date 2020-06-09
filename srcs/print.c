@@ -1,56 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/08 10:39:24 by nneronin          #+#    #+#             */
+/*   Updated: 2020/06/08 10:39:39 by nneronin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../lem_in.h"
 
-void	print_links(t_lem_in *lem)
+void	print_route(t_lem_in *lem, int len)
 {
-	t_link *current;
-	current = lem->links;
-	while (current != NULL)
-	{
-		ft_putstr(current->start->name);
-		ft_putchar('-');
-		ft_putstr(current->end->name);
-		ft_putchar('\n');
-		current = current->next;
-	}
-}
-
-void	print_room(t_lem_in *lem)
-{
-	t_room *current;
-	current = lem->rooms;
-	while (current != NULL)
-	{
-		if (current->type == START)
-			ft_putstr("##start\n");
-		else if (current->type == END)
-			ft_putstr("##end\n");
-		ft_putstr(current->name);
-		ft_putchar(' ');
-		ft_putnbr(current->yx[1]);
-		ft_putchar(' ');
-		ft_putnbr(current->yx[0]);
-		ft_putchar('\n');
-		current = current->next;
-	}
-}
-
-void	print_route(t_lem_in *lem)
-{
-	t_route *current;
-	t_link *current1;
+	t_route	*current;
+	t_link	*current1;
 
 	current = lem->routes;
 	while (current != NULL)
 	{
 		current1 = current->strt;
+		len = 0;
+		ft_putchar('[');
 		while (current1)
 		{
+			len += 1;
 			ft_putstr(current1->start->name);
-			ft_putstr("->");
+			ft_putstr("]->[");
 			if (!current1->next)
 			{
 				ft_putstr(current1->end->name);
+				ft_putstr("]	Length: ");
+				ft_putnbr(len);
 			}
 			current1 = current1->next;
 		}
@@ -64,11 +46,5 @@ void	print_map(t_lem_in *lem)
 	ft_putstr(lem->org_input);
 	ft_strdel(&lem->org_input);
 	free(lem->org_input);
-	ft_putstr("\n");
-	return ;
-	ft_putnbr(lem->ants);
-	ft_putstr("\n");
-	print_room(lem);
-	print_links(lem);	
 	ft_putstr("\n");
 }

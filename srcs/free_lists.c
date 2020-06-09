@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_lists.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/08 09:34:43 by nneronin          #+#    #+#             */
+/*   Updated: 2020/06/08 09:34:55 by nneronin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../lem_in.h"
 
@@ -48,5 +59,4 @@ void	main_struct_free(t_lem_in *lem)
 	free_rooms(lem);
 	free_routes(lem);
 	free_links(&lem->links);
-	//free(lem);
 }

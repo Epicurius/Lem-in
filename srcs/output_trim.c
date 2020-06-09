@@ -1,29 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   output_trim.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/08 10:38:04 by nneronin          #+#    #+#             */
+/*   Updated: 2020/06/08 10:38:54 by nneronin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../lem_in.h"
-#include <stdio.h>
 
-int		path_length(t_lem_in *lem, t_link *link, int l)
+int			path_length(t_lem_in *lem, t_link *link, int l)
 {
 	if (link == NULL)
 		return (2147483647);
 	if (link->end->bfs_val == 2147483647)
 		return (l + 1);
-	if (link->end->paths[0] == 0 && link->end != lem->end) //link->end->paths[0] > 1)
+	if (link->end->paths[0] == 0 && link->end != lem->end)
 		return (2147483647);
 	return (path_length(lem, find_link(lem, link->end, NULL), l + 1));
 }
 
 t_link		*find_optimal_rout(t_lem_in *lem, t_room *room)
 {
-	t_link *current;
-	t_link *optimal;
-	int min;
-	int current_len;
-	
+	t_link	*current;
+	t_link	*optimal;
+	int		min;
+	int		current_len;
+
 	min = 2147483647;
 	optimal = NULL;
 	current = lem->links;
-	while (current) //&& room->paths[1] > 1)
+	while (current)
 	{
 		if (current->start == room && current->used != -1)
 		{
@@ -43,7 +53,7 @@ void		trim_output(t_lem_in *lem)
 {
 	t_room	*current;
 	t_link	*optimal;
-	int x;
+	int		x;
 
 	optimal = NULL;
 	x = lem->max_bfs;
@@ -62,5 +72,4 @@ void		trim_output(t_lem_in *lem)
 		}
 		x--;
 	}
-	
 }

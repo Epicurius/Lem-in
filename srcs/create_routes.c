@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_routes.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/08 09:31:35 by nneronin          #+#    #+#             */
+/*   Updated: 2020/06/08 09:32:01 by nneronin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../lem_in.h"
-#include <stdio.h>
 #include "../error_msg.h"
 
 t_route		*create_a_route(void)
@@ -103,7 +113,7 @@ void		create_routes(t_lem_in *lem)
 			if ((link = find_link(lem, link->end, NULL)) == NULL)
 				break ;
 			link = disconnect_link(lem, link);
-			connect_route(route, link);	
+			connect_route(route, link);
 		}
 		add_route(lem, route);
 	}

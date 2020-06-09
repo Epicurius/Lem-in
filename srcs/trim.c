@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   trim.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/09 06:12:49 by nneronin          #+#    #+#             */
+/*   Updated: 2020/06/09 07:29:55 by nneronin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../lem_in.h"
-#include <stdio.h>
 
 void		delet(t_lem_in *lem, t_link *link)
 {
@@ -23,7 +33,7 @@ void		delet(t_lem_in *lem, t_link *link)
 	free(link);
 }
 
-void		un_link(t_lem_in *lem, t_link *link)
+void		un_link(t_link *link)
 {
 	link->start->paths[1] -= (link->start->paths[1] > 0 ? 1 : 0);
 	link->end->paths[0] -= (link->end->paths[0] > 0 ? 1 : 0);
@@ -43,7 +53,7 @@ void		trim_bfs(t_lem_in *lem)
 		if (elem->start->bfs_val == -1 || elem->end->bfs_val == -1)
 			delet(lem, elem);
 		else if (elem->start->bfs_val == elem->end->bfs_val)
-			un_link(lem, elem);
+			un_link(elem);
 	}
 }
 
@@ -61,7 +71,7 @@ void		trim_forks(t_lem_in *lem)
 			|| (elem->end != lem->end && elem->end->paths[1] == 0))
 			&& elem->used != -1)
 		{
-			un_link(lem, elem);
+			un_link(elem);
 			trim_forks(lem);
 			return ;
 		}
@@ -69,7 +79,7 @@ void		trim_forks(t_lem_in *lem)
 	return ;
 }
 
-void		keep_optimal(t_lem_in *lem, t_link *link, t_room *start, t_room *end)
+void		keep_optimal(t_lem_in *lem, t_link *link, t_room *s, t_room *e)
 {
 	t_link *current;
 	t_link *elem;
@@ -79,11 +89,11 @@ void		keep_optimal(t_lem_in *lem, t_link *link, t_room *start, t_room *end)
 	{
 		elem = current;
 		current = current->next;
-		if (start != NULL && end == NULL)
-			if (elem->start == start && elem != link && elem->used != -1)
-				delet(lem, elem);
-		if (end != NULL && start == NULL)
-			if (elem->start == end && elem != link && elem->used != -1)
-				delet(lem, elem);
+		if (s != NULL && e == NULL)
+			if (elem->start == s && elem != link && elem->used != -1)
+				un_link(elem);
+		if (e != NULL && s == NULL)
+			if (elem->start == e && elem != link && elem->used != -1)
+				un_link(elem);
 	}
 }
