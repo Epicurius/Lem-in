@@ -6,7 +6,7 @@
 #    By: nneronin <nneronin@stuent.hive.fi>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 11:13:47 by nneronin          #+#    #+#              #
-#    Updated: 2020/06/09 08:40:49 by nneronin         ###   ########.fr        #
+#    Updated: 2020/06/09 08:49:40 by nneronin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,14 +85,17 @@ DOTO = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME):
-	gcc $(FLAGS) -c $(SRCS)
-	ar rc $(NAME) $(DOTO)
-	ranlib $(NAME)
+	@gcc $(FLAGS) -c $(SRCS)
+	@ar rc $(NAME) $(DOTO)
+	@ranlib $(NAME)
+	@echo "$(NAME) is created."
 clean:
-	/bin/rm -f $(DOTO)
+	@/bin/rm -f $(DOTO)
+	@echo "$(NAME) is cleaned."
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
+	@echo "$(NAME) is flclean."
 
 re: fclean all
 
