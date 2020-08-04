@@ -3,26 +3,24 @@
 #include "./error_msg.h"
 #include <stdio.h>
 
-static t_type	room_type(char *line)
+static void	print_input(char **line)
 {
-	if (line[0] == 'L')
-		error_msg(L_START);
-	if (ft_strcmp(line, "##start") == 0)
-		return (START);
-	else if (ft_strcmp(line, "##end") == 0)
-		return (END);
-	else if (line[0] == '#' && line[1] != '#')
-		return (COMMENT);
-	else
-		return (MIDDLE);
+	//ft_putstr(*line);
+	//write(1, "\n", 1);
+	ft_strdel(line);
 }
 
-t_room 		*new_room(t_lem_in *lem, char *line, t_type type)
+t_room 		*new_room(t_lem_in *lem, char *line, int id)
 {
 	char **tmp;
 	t_room *room;
 	
 	tmp = ft_strsplit(line, ' ');
+	if (tmp[0] && tmp[1] == NULL)
+	{
+		lem->room_nb -= 1;
+		return (NULL);
+	}
 	if (tmp[0] == NULL || tmp[1] == NULL || tmp[2] == NULL)
 		error_msg(EXTRA_CRAP);
 	room = (t_room *)ft_memalloc(sizeof(t_room));
@@ -31,10 +29,7 @@ t_room 		*new_room(t_lem_in *lem, char *line, t_type type)
 		error_msg(EXTRA_CRAP);
 	room->yx[0] = ft_atoi(tmp[2]);
 	room->yx[1] = ft_atoi(tmp[1]);
-	if (type == START || type == END)
-		room->id = type == START ? 0 : 1;
-	else
-		room->id = lem->room_nb++; 
+	room->id = id;
 	room->next = NULL;
 	room->prev = NULL;
 	room->links_nb = 0;
@@ -70,26 +65,27 @@ void	connect_room(t_lem_in *lem, t_room *room)
 	}
 }
 
-t_room	*find_room(t_lem_in *lem, char *name)
+t_room		*find_room(t_lem_in *lem, char *name) //this take 50% of time
 {
 	int i;
-	
+
 	i = -1;
 	while (++i < lem->room_nb)
 	{
-		if (ft_strcmp(lem->id_table[i]->name, name) == 0)
-			return (lem->id_table[i]);
+		if (name[0] == lem->id_table[i]->name[0])
+			if (ft_strcmp(lem->id_table[i]->name, name) == 0)
+				return (lem->id_table[i]);
 	}
 	return (NULL);
 }
 
-int	find_links(char *line, t_lem_in *lem)
+void	find_links(char *line, t_lem_in *lem)
 {
 	char	*strt;
 	char	*end;
 	int		len;
-	t_room	*start_room;
-	t_room	*end_room;
+	t_room *start_room;
+	t_room *end_room;
 	
 	len = 0;
 	while (line[len] != '-' && line[len] != '\0')
@@ -100,7 +96,7 @@ int	find_links(char *line, t_lem_in *lem)
 	while (line[len] != '\0')
 		len++;
 	end = ft_strndup(line, len);
-	start_room = find_room(lem, strt);
+	start_room = find_room(lem, strt); //return id
 	end_room = find_room(lem, end);
 	free(strt);
 	free(end);
@@ -111,40 +107,54 @@ int	find_links(char *line, t_lem_in *lem)
 		start_room->links_nb += 1;
 		end_room->links_nb += 1;
 	}
-	return (0);
+}
+
+static t_type	room_type(t_lem_in *lem, char *line)
+{
+	int i;
+
+	if (line[0] == '#')
+	{
+		if (!ft_strcmp(line, "##start"))
+			return (START_ID);
+		else if (!ft_strcmp(line, "##end"))
+			return (END_ID);
+		else
+			return (-1);
+	}
+	if (line[0] == 'L')
+		error_msg(L_START);
+	return (lem->room_nb++);
 }
 
 char	*read_rooms(char *line, t_lem_in *lem)
 {
 	t_room *room;
-	t_type type;
+	int id;
 
-	while (get_next_line(0, &line) > 0)
+	while (get_next_line(0, &line))
 	{
-		//printf("%s\n", line); ///////////////////////////////////////
-		if ((type = room_type(line)) != COMMENT)
+		id = room_type(lem, line);
+		if (id == START_ID || id == END_ID)
 		{
-			if ((ft_strchr(line, ' ') == NULL) && type == MIDDLE)
-			{
-				if (lem->end == NULL || lem->start == NULL)
-					error_msg(MISSING_ROOM);
-				return (line);
-			}
-			else
-			{
-				type != MIDDLE ? ft_strdel(&line) : 0;
-				type != MIDDLE ? get_next_line(0, &line) : 0;
-				connect_room(lem, new_room(lem, line, type));
-			}
+			print_input(&line);
+			get_next_line(0, &line);	
+			connect_room(lem, new_room(lem, line, id));
 		}
-		if (ft_strstr(line, "#Here is the number of lines required:") != NULL && lem->min_moves == NULL)
+		else if (id != -1)
+		{
+			if ((room = new_room(lem, line, id)) == NULL)
+				return (line);
+			connect_room(lem, room);
+		}
+		if (lem->min_moves == NULL && ft_strstr(line, LINES_REQUIRED))
 			lem->min_moves = ft_strdup(line);
-		ft_strdel(&line);
+		print_input(&line);
 	}
 	return (NULL);
 }
 
-int	read_links(char *line, t_lem_in *lem)
+void	read_links(char *line, t_lem_in *lem)
 {
 	t_type type;
 	int i;
@@ -154,14 +164,12 @@ int	read_links(char *line, t_lem_in *lem)
 	while (i < lem->room_nb + 1)
 		lem->links[i++] = ft_memalloc(sizeof(int) * (lem->room_nb + 1));
 	find_links(line, lem);
-	while (get_next_line(0, &line) > 0)
+	while (get_next_line(0, &line))
 	{
-		//printf("%s\n", line); ///////////////////////////////////////
-		if ((type = room_type(line)) != COMMENT)
+		if (line[0] != '#')
 			find_links(line, lem);
-		ft_strdel(&line);
+		print_input(&line);
 	}
-	return (0);
 }
 
 void	create_table(t_lem_in *lem, t_room *room)
@@ -176,30 +184,34 @@ void	create_table(t_lem_in *lem, t_room *room)
 	lem->id_table[room->id] = room;
 }
 
+void	read_ants(t_lem_in *lem, char *line)
+{
+	while (get_next_line(0, &line))
+	{
+		if (!(line[0] == '#' && line[1] != '#'))
+		{
+			if (only_num(line) == 0)
+				error_msg(ANT_ERROR);
+			lem->ants = ft_atoi(line);
+			print_input(&line);
+			if (lem->ants > 2147483647 || lem->ants <= 0)
+				error_msg(WRONG_ANT_AMOUNT);
+			return ;
+		}
+		print_input(&line);
+	}
+}
 
 void	read_input(t_lem_in *lem)
 {
 	char *line;
 
 	line = NULL;
-	while (get_next_line(0, &line) > 0)
-	{
-		//printf("%s\n", line); ///////////////////////////////////////
-		if (!(line[0] == '#' && line[1] != '#'))
-		{
-			if (only_num(line) == 0)
-				error_msg(ANT_ERROR);
-			lem->ants = ft_atoi(line);
-			break ;
-		}
-		ft_strdel(&line);
-	}
-	if (lem->ants > 2147483647 || lem->ants <= 0)
-		error_msg(WRONG_ANT_AMOUNT);
-	ft_strdel(&line);
+	read_ants(lem, line);
 	line = read_rooms(line, lem);
+	if (lem->end == NULL || lem->start == NULL)
+		error_msg(MISSING_ROOM);
 	create_table(lem, lem->rooms);
 	read_links(line, lem);
-	//printf("\n");
 	free(line);
 }
