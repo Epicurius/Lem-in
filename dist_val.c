@@ -16,6 +16,7 @@ void	set_max_weights(t_lem_in *lem)
 static int	if_next_bfs_lower(t_room *next, t_room *curr, t_queue *q)
 {
 	int pos;
+	int nw;
 
 	if (q->flow[curr->id][next->id] == 1)
 		return (1);
@@ -23,7 +24,8 @@ static int	if_next_bfs_lower(t_room *next, t_room *curr, t_queue *q)
 		pos = curr->weight - 1;
 	else
 		pos = curr->weight + 1;
-	if (pos < next->weight && next->weight != MAX_INT)
+	nw = (q->visited[next->id] == 0 ? MAX_INT : next->weight);
+	if (pos < nw && nw != MAX_INT)
 	{
 		next->weight = pos;
 		return (0);
@@ -55,9 +57,7 @@ void	check_dist(t_lem_in *lem, t_queue *q, t_room *curr, t_room *next)
 		(!if_loop(lem, lem->id_table[q->prev[next->id]], next, q)) &&
 		(!if_next_bfs_lower(lem->id_table[q->prev[next->id]], next, q)))
 	{
-		//printf("{Y}");
 		q->prev[q->prev[next->id]] = next->id;
 	}
-	//printf("{N}");
 	q->prev[next->id] = curr->id;
 }

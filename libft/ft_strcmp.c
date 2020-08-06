@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@stuent.hive.fi>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 16:09:12 by nneronin          #+#    #+#             */
-/*   Updated: 2019/10/21 12:04:33 by nneronin         ###   ########.fr       */
+/*   Updated: 2020/08/05 10:40:06 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,14 @@ int	ft_strcmp(const char *s1, const char *s2)
 	}
 	return (asd[x] - qwe[x]);
 }
+
+/*
+int		ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		++s1;
+		++s2;
+	}
+	return (*(unsigned char*)s1 - *(unsigned char*)s2);
+}*/

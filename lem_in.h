@@ -8,6 +8,7 @@
 # define END_ID 1
 # define MAX_INT 2147483647
 # define LINES_REQUIRED "#Here is the number of lines required:"
+# define RB_RED 1
 
 typedef enum
 {
@@ -17,18 +18,14 @@ typedef enum
 	COMMENT
 }	t_type;
 
-typedef struct		s_room
-{
-	int				id;
-	char				*name;
-	int				ant_id;
-	int				yx[2];
-	int				links_nb;
-	int				*links;
-	int				weight;
-	struct s_room	*next;
-	struct s_room	*prev;
-}					t_room;
+
+//typedef struct			s_tree_data
+//{
+//	char				*line;
+//	size_t				fin;
+//	long long			x;
+//	long long			y;
+//}						t_tree_data;
 
 typedef struct		s_queue
 {
@@ -51,29 +48,47 @@ typedef struct		s_path
 	struct s_path	*next;
 }					t_path;
 
+typedef struct			s_room
+{
+	struct s_room		*left;
+	struct s_room		*right;
+	struct s_room		*parent;
+	int					x;
+	int					y;
+	size_t				flag;
+	size_t				links_nb;
+	size_t				visited;
+	int				weight;
+	char				*name;
+	int					id;
+	int					ant_id;
+	t_list				*link;
+}						t_room;
 
 typedef	struct		s_lem_in
 {
-	int				room_nb;
-	long			ants;
 	int				max_paths;
 	int				moves;
+	long			ants;
+	int				links_nb;
+	int				room_nb;
+	char			*min_moves;
 	int				**links;
 	t_room			**id_table;
-	t_room			*start;
 	t_room			*end;
-	t_room			*rooms; //remove later
-	char			*min_moves;
+	t_room			*start;
+	t_room			*tree;
 }					t_lem_in;
 
 void				read_input(t_lem_in *lem);
-void				algo(t_lem_in *lem);
 void				error_msg(char *str);
+char				*ft_strndup(const char *s1, ssize_t len);
+void	balance_black_uncle_left(t_room **node, int am_i_left);
+void	balance_black_uncle_right(t_room **node, int am_i_left);
+void				algo(t_lem_in *lem);
 int					only_num(char *str);
 void				print_table(t_lem_in *lem);
 void				print_map(t_lem_in *lem);
-//t_room				*find_room(t_lem_in *lem, char *name);
-char				*ft_strndup(const char *s1, ssize_t len);
 void				room_link_list(t_lem_in *lem);
 void				path_find(t_lem_in *lem, t_queue *q, t_path **p);
 void				free_path(t_path *path_list);
@@ -90,5 +105,6 @@ void				save_paths(t_queue *q, t_lem_in *lem, t_path **path_list);
 void				set_path(t_path **path_list, int i, t_lem_in *lem);
 void				add_to_queue(t_queue *q, int room, int id);
 void				ant_algo(t_lem_in *lem, t_path *path_l);
+
 
 #endif

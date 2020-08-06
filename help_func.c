@@ -24,16 +24,22 @@ void	reset_queue(t_queue *q, int s, int e)
 void	check_start_end(t_lem_in *lem, t_queue *q)
 {
 	int i;
+	t_list *link;
+	t_room *room;
+
+	link = lem->start->link;
 
 	i = -1;
-	while (++i != lem->start->links_nb)
+	while (link)
 	{
-		if (lem->start->links[i] == END_ID)
+		room = link->content;
+		if (room == lem->end)
 		{
 			q->flow[START_ID][END_ID] = 1;
 			q->flow[END_ID][START_ID] = -1;
 			q->prev[END_ID] = START_ID;
 			return ;
 		}
+		link = link->next;
 	}
 }

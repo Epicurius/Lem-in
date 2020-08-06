@@ -6,23 +6,24 @@
 /*   By: nneronin <nneronin@stuent.hive.fi>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 14:18:03 by nneronin          #+#    #+#             */
-/*   Updated: 2019/10/26 17:09:51 by nneronin         ###   ########.fr       */
+/*   Updated: 2020/08/05 13:07:06 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./libft.h"
 
-void	*ft_memset(void *str, int c, size_t n)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	size_t	x;
-	char	*s;
+	char	*start;
 
-	s = (char *)str;
-	x = 0;
-	while (x < n)
+	if (b == NULL)
+		return (NULL);
+	start = b;
+	while (len)
 	{
-		s[x] = (char)c;
-		x++;
+		*start = c;
+		start++;
+		len--;
 	}
-	return (str);
+	return (b);
 }

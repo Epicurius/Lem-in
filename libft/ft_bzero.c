@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@stuent.hive.fi>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 14:26:46 by nneronin          #+#    #+#             */
-/*   Updated: 2019/10/26 17:12:59 by nneronin         ###   ########.fr       */
+/*   Updated: 2020/08/05 10:50:32 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,5 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	int		x;
-	char	*str;
-
-	str = (char *)s;
-	x = 0;
-	while (n--)
-	{
-		str[x] = '\0';
-		x++;
-	}
+	ft_memset(s, 0, n);
 }

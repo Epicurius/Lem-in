@@ -1,17 +1,18 @@
 NAME = lem-in
 SRCS = 	./error.c\
-	./main.c\
-	./print.c\
-	./ft_strndup.c\
-	./read_input.c\
-	./algo.c\
-	./path_find.c\
-	./help_path_func.c\
-	./help_func.c\
-	./save.c\
-	./bfs.c\
-	./dist_val.c\
-	./ants.c
+		./main.c\
+		./print.c\
+		./ft_strndup.c\
+		./rb_func.c\
+		./read_input.c\
+		./algo.c\
+		./path_find.c\
+		./help_path_func.c\
+		./help_func.c\
+		./save.c\
+		./bfs.c\
+		./dist_val.c\
+		./ants.c
 
 OBJS = $(SRCS:.c=.o)
 INCLUDES = ./libft/libft.a

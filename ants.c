@@ -38,10 +38,8 @@ int s_p(t_path *paths)
 	int shortest = MAX_INT;
 
 	curr = paths;
-	//printf("Lenghts: ");
 	while (curr)
 	{
-		//printf("%d ", curr->len);
 		if (curr->len < shortest)
 			shortest = curr->len;
 		curr = curr->next;
@@ -79,7 +77,6 @@ void		ant_algo(t_lem_in *lem, t_path *paths)
 	int shortest = s_p(paths);
 
 	max_ants = lem->ants;
-	//printf("Shortest: %d max_ants%d\n", shortest, max_ants);
 	int c = 0;
 	while (max_ants > 0)
 	{
@@ -88,6 +85,4 @@ void		ant_algo(t_lem_in *lem, t_path *paths)
 	}
 	c += shortest - 1;	
 	paths->llen = c;
-	//print_flows(lem, paths);
-	//printf("\np->llen: %d\n", paths->llen);
 }

@@ -1,47 +1,45 @@
 
 #include "./lem_in.h"
 #include "./error_msg.h"
-
-void	print_table(t_lem_in *lem)
+/*
+void	room_link_list(t_lem_in *lem)
 {
-	int i = 0;
-	while (i < lem->room_nb)
+	t_list  *links;
+	t_room *curr;
+	int	a;
+	int	i;
+
+	a = 0;
+	i = 0;
+	while (a < lem->room_nb)
 	{
-		printf("ID: %d, Name: %s\n", lem->id_table[i]->id, lem->id_table[i]->name);
-		for (int l = 0; l < lem->id_table[i]->links_nb; l++)
-			printf("\tnb: %d\n", lem->id_table[i]->links[l]);
-		i++;
-	}
-	int y = 0;
-	int x;
-	while (y < lem->room_nb)
-	{
-		x = 0;
-		while (x < lem->room_nb)
+		if (!(lem->id_table[a]->links = ft_memalloc(sizeof(int) * (lem->id_table[a]->links_nb + 1))))
+			error_msg("Id_table[i]->links malloc\n");
+		i = 0;
+		links = lem->id_table[a]->link;
+		while (links)
 		{
-			if (lem->links[y][x] == 1)
-				printf("Link: %d-%d\n", y, x);
-			x++;
+			curr = links->content;
+			lem->id_table[a]->links[i] = curr->id;//links->content;
+			i += 1;
+			links = links->next;
 		}
-		y++;
+		a += 1;
 	}
-}
+}*/
 
 int main(void)
 {
 	t_lem_in *lem;
 
 	lem = (t_lem_in *)malloc(sizeof(* lem));
-	lem->moves = MAX_INT;
+	//ft_bzero(&lem, sizeof(lem));
 	lem->end = NULL;
 	lem->start = NULL;
+	lem->tree = NULL;
 	lem->room_nb = 2;
-	lem->min_moves = NULL;
 	read_input(lem);
-	room_link_list(lem);
-	if (lem->min_moves != NULL)
-		fprintf(stderr, "%s\n", lem->min_moves);
-	//print_table(lem);
+	//room_link_list(lem);
 	algo(lem);
 	return (0);
 }

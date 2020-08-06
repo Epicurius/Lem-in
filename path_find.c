@@ -13,7 +13,6 @@ static void	save_flow(t_queue *q, t_lem_in *lem)
 	while (e != START_ID)
 	{
 		s = q->prev[e];
-		//printf("R:%s\n", lem->id_table[s]->name);
 		if (q->flow[e][s] == 0)
 		{
 			q->flow[e][s] = -1;
@@ -28,27 +27,6 @@ static void	save_flow(t_queue *q, t_lem_in *lem)
 	}
 }
 
-int	back(t_queue *q, t_room *r)
-{
-	int x;
-	int i;
-	int j;
-	
-	j = 0;
-	i = 0;
-	x = -1;
-	while (++x < r->links_nb)
-	{
-		if (q->flow[r->links[x]][r->id] == 1)
-			j += 1;
-		if (q->flow[r->id][r->links[x]] == 1)
-			i += 1;
-	}
-	return (i == 1 && j == 1 ? 1 : 0);
-}
-			//&& rev != 1) || (rev == 1 && q->flow[r->links[i]][r->id] == 1
-			//	&& q->visited[r->links[i]] != 1))
-
 void	add_to_queue(t_queue *q, int room, int id)
 {
 	q->queue[q->position] = room;
@@ -59,66 +37,52 @@ void	add_to_queue(t_queue *q, int room, int id)
 
 static int	find_neg_flow(t_queue *q, t_room *r, t_lem_in *lem)
 {
-	int		i;
-	int	n = 0;;
+	int		n = 0;
+	t_list		*link;
+	t_room		*curr;
 
-	i = 0;
-	while (i < r->links_nb)
+	link = r->link;
+	while (link)
 	{
-		//printf(" %s ", lem->id_table[r->links[i]]->name);
-		if (q->visited[r->links[i]] != 1 && q->flow[r->id][r->links[i]] == -1)
+		curr = link->content;
+		if (q->visited[curr->id] != 1 && q->flow[r->id][curr->id] == -1)
 		{
-			if (lem->id_table[r->links[i]]->weight != MAX_INT)
-				check_dist(lem, q, r, lem->id_table[r->links[i]]);
-			//printf("\tR%s", lem->id_table[r->links[i]]->name);
-			//printf("addN(%d)", q->visited[r->links[i]]);
-			q->queue[q->position] = r->links[i];
-			q->prev[r->links[i]] = r->id;
-			q->visited[r->links[i]] = 1;
-			++q->position;
-			lem->id_table[r->links[i]]->weight = r->weight - 1;
+			if (curr->weight != MAX_INT)
+				check_dist(lem, q, r, curr);
+			add_to_queue(q, curr->id, r->id);
+			curr->weight = r->weight - 1;
 			return (1);
 		}
-		if (q->flow[r->links[i]][r->id] == 1)
+		if (q->flow[curr->id][r->id] == 1)
 			n = 1;
-		++i;
+		link = link->next;
 	}
 	return (n);
 }
 
-
 static int	find_flow(t_queue *q, t_room *r, int prev_flow, t_lem_in *lem)
 {
-	int		j;
-	int n = 0;
+	t_list		*link;
+	t_room		*curr;
 
-	j = 0;
-	//printf("\nName:%s(%d|%d)", r->name, q->visited[r->id], prev_flow);
-	if (prev_flow == 0 && (n = find_neg_flow(q, r, lem)) == 1)
+	if (prev_flow == 0 && find_neg_flow(q, r, lem) == 1)
 		return (0);
-	while (j < r->links_nb)
+	link = r->link;
+	while (link)
 	{
-		//printf("\tR%2s", lem->id_table[r->links[j]]->name);
-		if (lem->id_table[r->links[j]]->weight != MAX_INT)
-			check_dist(lem, q, r, lem->id_table[r->links[j]]);
-		if (q->visited[r->links[j]] != 1
-			&& q->flow[r->id][r->links[j]] != 1
-			&& (r->id != START_ID || r->links[j] != END_ID))
+		curr = link->content;
+		if (curr->weight != MAX_INT)
+			check_dist(lem, q, r, curr);
+		if (q->visited[curr->id] != 1 && q->flow[r->id][curr->id] != 1
+			&& (r->id != START_ID || curr->id != END_ID))
 		{
-			n += 1;
-			//printf("addP(%d)", q->visited[r->links[j]]);
-			q->queue[q->position] = r->links[j];
-			q->prev[r->links[j]] = r->id;
-			q->visited[r->links[j]] = 1;
-			++q->position;
-			if (q->flow[r->id][r->links[j]] == 0)
-				lem->id_table[r->links[j]]->weight = r->weight + 1;
+			add_to_queue(q, curr->id, r->id);
+			if (q->flow[r->id][curr->id] == 0)
+				curr->weight = r->weight + 1;
 			else
-				lem->id_table[r->links[j]]->weight = r->weight - 1;
+				curr->weight = r->weight - 1;
 		}
-		//else
-		//	printf("rem(%d)", q->visited[r->links[j]]);
-		++j;
+		link = link->next;
 	}
 	return (0);
 }
@@ -139,7 +103,6 @@ static int	optimise_flow(t_lem_in *lem, t_queue *q, int *t)
 		i > 0 ? prev_flow = q->flow[q->prev[room]][room] : 0;
 		find_flow(q, lem->id_table[room], prev_flow, lem);
 	}
-	//printf("\n");
 	if (q->prev[END_ID] == -1 || (q->prev[END_ID] == START_ID && *t == 1))
 		return (0);
 	return (*t = 1);
@@ -152,7 +115,7 @@ void	path_find(t_lem_in *lem, t_queue *q, t_path **p)
 	int t = 0;
 	*p = create_paths(NULL, 0);
 	(*p)->llen = 0;
-	set_max_weights(lem);
+	set_max_weights(lem); //if not visited change else is real
 	while (optimise_flow(lem, q, &t))
 	{
 		new = create_paths(NULL, 0);
@@ -167,7 +130,10 @@ void	path_find(t_lem_in *lem, t_queue *q, t_path **p)
 			*p = new;
 		}
 		else
+		{
 			free_path(new);
+			return ;
+		}
 		clear_queue(q);
 	}
 	t == 0 ? error_msg("No paths.\n") : 0;

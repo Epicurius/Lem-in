@@ -17,7 +17,7 @@ char	*ft_strndup(const char *s1, ssize_t len)
 	sdest[counter] = '\0';
 	return (sdest);
 }
-
+/*
 void	room_link_list(t_lem_in *lem)
 {
 	int	a;
@@ -44,4 +44,4 @@ void	room_link_list(t_lem_in *lem)
 		b = 0;
 		i = 0;
 	}
-}
+}*/

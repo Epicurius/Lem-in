@@ -7,10 +7,16 @@ void	find_connected(t_queue *q, t_room *r)
 	int	i;
 
 	i = -1;
-	while (++i < r->links_nb)
-		if (q->visited[r->links[i]] == 0 &&
-			q->flow[r->id][r->links[i]] == 1)
-			add_to_queue(q, r->links[i], r->id);
+	t_list	*link;
+	t_room 	*curr;
+	link = r->link;
+	while (link)
+	{
+		curr = link->content;
+		if (q->visited[curr->id] == 0 && q->flow[r->id][curr->id] == 1)
+			add_to_queue(q, curr->id, r->id);
+		link = link->next;
+	}
 }
 
 int	bfs(t_lem_in *lem, t_queue *q)
