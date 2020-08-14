@@ -13,9 +13,9 @@ void	print_flows(t_lem_in *lem, t_path *tmp, int path_nb, int moves)
 	{
 		ft_putnbr(i);
 		ft_putstr(":\t");
-		ft_putnbr(tmp[i].len);
+		ft_putnbr(tmp[i].len - 1);
 		write(1, "[", 1);
-		ft_putnbr(tmp[i].len);
+		ft_putnbr(tmp[i].div);
 		ft_putstr("]\n");
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 10:05:32 by nneronin          #+#    #+#             */
-/*   Updated: 2020/08/12 16:22:10 by nneronin         ###   ########.fr       */
+/*   Updated: 2020/08/14 11:37:28 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ static int	find_neg_flow(t_queue *q, t_room *r, t_lem_in *lem)
 	while (link)
 	{
 		curr = link->content;
-		//if (q->visited[curr->id] != 1 && q->flow[r->id][curr->id] == -1)
-		//if (q->visited[curr->id] != 1 && find_link(curr, r->id)->content_size == 1)
 		if (q->visited[curr->id] != 1 && link->content_size == -1)
 		{
 			if (q->visited[curr->id] != 0)
@@ -96,8 +94,6 @@ static int	find_neg_flow(t_queue *q, t_room *r, t_lem_in *lem)
 			curr->weight = r->weight - 1;
 			return (1);
 		}
-		//if (q->flow[curr->id][r->id] == 1)
-		//if (link->content_size == 1)
 		if (find_link(curr, r->id)->content_size == 1)
 			n = 1;
 		link = link->next;
@@ -118,12 +114,10 @@ static int	find_flow(t_queue *q, t_room *r, int prev_flow, t_lem_in *lem)
 		curr = link->content;
 		if (q->visited[curr->id] != 0)
 			check_dist(lem, q, r, curr);
-		//if (q->visited[curr->id] != 1 && q->flow[r->id][curr->id] != 1
 		if (q->visited[curr->id] != 1 && link->content_size != 1
-			&& (r->id != START_ID || curr->id != END_ID))
+				&& (r->id != START_ID || curr->id != END_ID))
 		{
 			add_to_queue(q, curr->id, r->id);
-			//if (q->flow[r->id][curr->id] == 0)
 			if (link->content_size == 0)
 				curr->weight = r->weight + 1;
 			else
@@ -145,8 +139,8 @@ static int	optimise_flow(t_lem_in *lem, t_queue *q, int *t)
 	check_start_end(lem, q);
 	while (++i < q->len && q->visited[END_ID] != 1 && q->queue[i] >= 0)
 	{
-		room = q->queue[i];
 		prev_flow = 0;
+		room = q->queue[i];
 		if (i > 0)
 			prev_flow = find_link(lem->id_table[q->prev[room]], room)->content_size;
 		find_flow(q, lem->id_table[room], prev_flow, lem);
@@ -158,8 +152,9 @@ static int	optimise_flow(t_lem_in *lem, t_queue *q, int *t)
 
 void	free_paths(t_path *paths, int len)
 {
-	int i = -1;
+	int i;
 
+	i = -1;
 	while (++i < len)
 		ft_memdel((void*)&paths[i]);
 	free(paths);

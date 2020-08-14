@@ -6,14 +6,14 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 17:12:02 by nneronin          #+#    #+#             */
-/*   Updated: 2020/08/12 17:19:48 by nneronin         ###   ########.fr       */
+/*   Updated: 2020/08/14 10:58:17 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./lem_in.h"
 #include "./error_msg.h"
 
-void	create_link(t_room *left, t_room *right)
+void	create_link(t_lem_in *lem, t_room *left, t_room *right)
 {
 	t_list	*node;
 
@@ -64,7 +64,7 @@ void	find_links(char *line, t_lem_in *lem)
 	free(end);
 	if (start_room && end_room)
 	{
-		create_link(start_room, end_room);
+		create_link(lem, start_room, end_room);
 		if (lem->id_table[start_room->id] == NULL)
 			lem->id_table[start_room->id] = start_room;
 		if (lem->id_table[end_room->id] == NULL)
