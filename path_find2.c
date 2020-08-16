@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 10:05:32 by nneronin          #+#    #+#             */
-/*   Updated: 2020/08/16 12:20:16 by nneronin         ###   ########.fr       */
+/*   Updated: 2020/08/15 11:53:44 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,43 +61,31 @@ void	add_to_queue(t_queue *q, int room, int id)
 	++q->position;
 }
 
-t_room *follow_neg_flow(t_queue *q, t_room *r, t_lem_in *lem)
+static int	find_neg_flow(t_queue *q, t_room *r, t_lem_in *lem)
 {
+	int		n;
 	t_list	*link;
 	t_room	*curr;
 
-	link = r->link;
-	if (r->id == START_ID)
-		return (NULL);
-	while (link)
-	{
-		curr = link->content;
-		if (q->visited[curr->id] != 1 && link->content_size == 0)
-			return (r);
-		link = link->next;
-	}
-	return (find_neg_flow(q, r, lem));
-
-}
-
-t_room *find_neg_flow(t_queue *q, t_room *r, t_lem_in *lem)
-{
-	t_list	*link;
-	t_room	*curr;
-
+	n = 0;
 	link = r->link;
 	while (link)
 	{
 		curr = link->content;
 		if (q->visited[curr->id] != 1 && link->content_size == -1)
 		{
+			if (q->visited[curr->id] != 0)
+				check_dist(lem, q, r, curr);
 			q->prev[curr->id] = r->id;
 			q->visited[curr->id] = 1;
-			return (follow_neg_flow(q, curr, lem));
+			curr->weight = r->weight - 1;
+			return (find_neg_flow(q, curr, lem));
 		}
+		if (find_link(curr, r->id)->content_size == 1)
+			n = 1;
 		link = link->next;
 	}
-	return (r);
+	return (n);
 }
 
 static int	find_flow(t_queue *q, t_room *r, int prev_flow, t_lem_in *lem)
@@ -105,14 +93,23 @@ static int	find_flow(t_queue *q, t_room *r, int prev_flow, t_lem_in *lem)
 	t_list		*link;
 	t_room		*curr;
 
-	if ((r = find_neg_flow(q, r, lem)) == NULL)
+	if (prev_flow == 0 && find_neg_flow(q, r, lem) == 1)
 		return (1);
 	link = r->link;
 	while (link)
 	{
 		curr = link->content;
-		if (q->visited[curr->id] != 1 && link->content_size != 1)
+		if (q->visited[curr->id] != 0)
+			check_dist(lem, q, r, curr);
+		if (q->visited[curr->id] != 1 && link->content_size != 1
+				&& (r->id != START_ID || curr->id != END_ID))
+		{
 			add_to_queue(q, curr->id, r->id);
+			if (link->content_size == 0)
+				curr->weight = r->weight + 1;
+			else
+				curr->weight = r->weight - 1;
+		}
 		link = link->next;
 	}
 	return (0);
@@ -120,8 +117,8 @@ static int	find_flow(t_queue *q, t_room *r, int prev_flow, t_lem_in *lem)
 static int	optimise_flow(t_lem_in *lem, t_queue *q, int *t)
 {
 	int		i;
-	int prev_flow =0;
 	int		room;
+	int		prev_flow;
 
 	i = -1;
 	clear_queue(q);
@@ -129,10 +126,11 @@ static int	optimise_flow(t_lem_in *lem, t_queue *q, int *t)
 	check_start_end(lem, q);
 	while (++i < q->len && q->visited[END_ID] != 1 && q->queue[i] >= 0)
 	{
+		prev_flow = 0;
 		room = q->queue[i];
+		if (i > 0)
+			prev_flow = find_link(lem->id_table[q->prev[room]], room)->content_size;
 		find_flow(q, lem->id_table[room], prev_flow, lem);
-		if (lem->flag.queue == 1)
-			print_queue(lem, q, i);
 	}
 	if (q->prev[END_ID] == -1 || (q->prev[END_ID] == START_ID && *t == 1))
 		return (0);

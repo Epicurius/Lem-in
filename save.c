@@ -52,9 +52,11 @@ static int		*assign_path(t_lem_in *lem, t_queue *q)
 		error_msg("Assign path malloc\n");
 	while (++i <= steps)
 	{
+		//printf("[%s]->", lem->id_table[pos]->name);
 		path[steps - i] = pos;
 		pos = q->prev[pos];
 	}
+	//printf("\n");
 	return (path);
 }
 

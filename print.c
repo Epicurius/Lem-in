@@ -41,3 +41,21 @@ void	print_check(t_lem_in *lem)
 	write(1, "\n", 1);
 	ft_putstr("========================================\n");
 }
+
+void	print_queue(t_lem_in *lem, t_queue *q, int i)
+{
+	int x;
+
+	x = -1;
+	while (++x < q->position)
+	{
+		if (x == i)
+			write(1, "[", 1);
+		ft_putstr(lem->id_table[q->queue[x]]->name);
+		if (x == i)
+			write(1, "]", 1);
+		if (x + 1 != q->position)
+			write(1, "-", 1);
+	}
+	write(1, "\n", 1);
+}

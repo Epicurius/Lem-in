@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:23:22 by nneronin          #+#    #+#             */
-/*   Updated: 2020/08/12 15:50:21 by nneronin         ###   ########.fr       */
+/*   Updated: 2020/08/14 11:45:40 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_queue(t_lem_in *lem, t_queue *q)
 	q->len = lem->room_nb;
 	if (!(q->prev = ft_memalloc(sizeof(int) * q->len)))
 		error_msg("q->prev malloc\n");
-	if (!(q->queue = ft_memalloc(sizeof(int) * q->len)))
+	if (!(q->queue = ft_memalloc(sizeof(int) * (q->len + 10))))
 		error_msg("q->queue malloc\n");
 	if (!(q->visited = ft_memalloc(sizeof(int) * q->len)))
 		error_msg("q->visited malloc\n");

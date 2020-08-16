@@ -11,6 +11,7 @@ void	read_args(t_lem_in *lem, int ac, char **av)
 	lem->flag.full = 0;
 	lem->flag.flows = 0;
 	lem->flag.info = 0;
+	lem->flag.queue = 0;
 	lem->flag.format = 0;
 	while (++i < ac)
 	{
@@ -18,17 +19,19 @@ void	read_args(t_lem_in *lem, int ac, char **av)
 			return ;
 		if (av[i][0] != '-')
 			error_msg("ERROR: Wrong args format.");
-		if (!ft_strcmp("-flows", av[i]))
+		else if (!ft_strcmp("-flows", av[i]))
 			lem->flag.flows = 1;
-		if (!ft_strcmp("-info", av[i]))
+		else if (!ft_strcmp("-info", av[i]))
 			lem->flag.info = 1;
-		if (!ft_strcmp("-full", av[i]))
+		else if (!ft_strcmp("-full", av[i]))
 			lem->flag.full = 1;
-		if (!ft_strcmp("-format=ants", av[i]))
+		else if (!ft_strcmp("-queue", av[i]))
+			lem->flag.queue = 1;
+		else if (!ft_strcmp("-format=ants", av[i]))
 			lem->flag.format = 1;
-		if (!ft_strcmp("-format=map", av[i]))
+		else if (!ft_strcmp("-format=map", av[i]))
 			lem->flag.format = 2;
-		if (!ft_strcmp("-format=empty", av[i]))
+		else if (!ft_strcmp("-format=empty", av[i]))
 			lem->flag.format = 3;
 	}
 }

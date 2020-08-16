@@ -21,6 +21,7 @@ typedef struct		s_args
 	bool			flows;
 	bool			info;
 	bool			full;
+	bool			queue;
 	unsigned char	format;
 }					t_args;
 
@@ -30,6 +31,7 @@ typedef struct		s_queue
 	int				*visited;
 	int				*prev;
 	int				position;
+	int				tmp_pos;
 	int				len;
 }					t_queue;
 
@@ -110,6 +112,9 @@ void				print_input(char **line, unsigned char i);
 void				print_ants(t_lem_in *lem);
 void				print_flows(t_lem_in *lem, t_path *tmp, int path_nb, int moves);
 void				print_check(t_lem_in *lem);
+void				print_queue(t_lem_in *lem, t_queue *q, int i);
+
+t_room				*find_neg_flow(t_queue *q, t_room *r, t_lem_in *lem);
 
 
 #endif
