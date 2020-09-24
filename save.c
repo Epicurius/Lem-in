@@ -69,7 +69,6 @@ int	save_paths(t_queue *q, t_lem_in *lem, t_path *tmp)
 	
 	nb = 0;
 	s = 0;
-	lem->start->weight = 0;
 	reset_int_array(&q->visited, q->len, 0);
 	while (bfs(lem, q))
 	{

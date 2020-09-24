@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 10:05:32 by nneronin          #+#    #+#             */
-/*   Updated: 2020/08/16 15:58:02 by nneronin         ###   ########.fr       */
+/*   Updated: 2020/08/19 10:54:55 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ static int	optimise_flow(t_lem_in *lem, t_queue *q, int *t)
 	clear_queue(q);
 	reset_queue(q, START_ID, END_ID);
 	check_start_end(lem, q);
-	//while (++i < q->len && i < q->position) //slow
 	while (++i < q->len && q->visited[END_ID] != 1 && q->queue[i] >= 0)
 	{
 		room = q->queue[i];
