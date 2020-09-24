@@ -1,8 +1,7 @@
 NAME = lem-in
-SRCS = 	./error.c\
+SOURCE = ./error.c\
 		./main.c\
 		./print.c\
-		./ft_strndup.c\
 		./rb_func.c\
 		./rb_tree.c\
 		./read_input.c\
@@ -17,22 +16,24 @@ SRCS = 	./error.c\
 		./ants.c\
 		./print_ants.c
 
-
-
+DIR_S = srcs
+SRCS = $(addprefix $(DIR_S)/,$(SOURCE))
 OBJS = $(SRCS:.c=.o)
-INCLUDES = ./libft/libft.a
+INCLUDES = ./lib/libft/libft.a
 ERROR_MSG = ./error_msg.h
 FLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
 $(NAME):
-	gcc -o $(NAME) $(SRCS) $(INCLUDES)
+	@gcc -o $(NAME) $(SRCS) $(INCLUDES)
+	@echo "$(NAME) was successfully created."
 clean:
-	/bin/rm -f $(OBJS)
+	@/bin/rm -f $(OBJS)
+	@echo "$(NAME) was cleaned."
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
 
 re: fclean all
 

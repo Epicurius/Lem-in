@@ -1,8 +1,8 @@
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
-# include "./libft/libft.h"
-# include "./libft/get_next_line.h"
+# include "../lib/libft/libft.h"
+# include "./lib/libft/get_next_line.h"
 # include <stdio.h>
 # include <time.h>
 # include <stdbool.h> 
@@ -87,7 +87,6 @@ int					room_type(t_lem_in *lem, char *line);
 t_room				*new_room(t_lem_in *lem, char *line, int id);
 
 void				error_msg(char *str);
-char				*ft_strndup(const char *s1, ssize_t len);
 int					rb_insert(t_room **root, t_room *node);
 void				rb_balance(t_room **node, int am_i_left);
 void				balance_black_uncle_left(t_room **node, int am_i_left);
