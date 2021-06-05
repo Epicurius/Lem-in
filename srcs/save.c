@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   save.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/05 18:22:17 by nneronin          #+#    #+#             */
+/*   Updated: 2021/06/05 18:28:10 by nneronin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../lem_in.h"
 
-static void		mark_path(t_lem_in *lem, t_queue *q)
+static void	mark_path(t_lem_in *lem, t_queue *q)
 {
-	int		path;
-	int		i;
+	int	path;
+	int	i;
 
 	i = -1;
 	path = q->prev[END_ID];
@@ -22,11 +33,10 @@ static void		mark_path(t_lem_in *lem, t_queue *q)
 	}
 }
 
-
 void	count_steps(t_queue *q, size_t *steps)
 {
-	int		e;
-	int		s;
+	int	e;
+	int	s;
 
 	*steps = 0;
 	s = START_ID;
@@ -38,9 +48,9 @@ void	count_steps(t_queue *q, size_t *steps)
 	}
 }
 
-static int		*assign_path(t_lem_in *lem, t_queue *q)
+static int	*assign_path(t_lem_in *lem, t_queue *q)
 {
-	size_t		steps;
+	size_t	steps;
 	int		*path;
 	int		pos;
 	int		i;
@@ -48,15 +58,16 @@ static int		*assign_path(t_lem_in *lem, t_queue *q)
 	i = -1;
 	pos = END_ID;
 	count_steps(q, &steps);
-	if (!(path = ft_memalloc((sizeof(int)) * (steps + 1))))
+	path = ft_memalloc((sizeof(int)) * (steps + 1));
+	if (!path)
 		error_msg("Assign path malloc\n");
 	while (++i <= steps)
 	{
-		//printf("[%s]->", lem->id_table[pos]->name);
 		path[steps - i] = pos;
 		pos = q->prev[pos];
 	}
-	//printf("\n");
+	if (!path)
+		error_msg("Cant find a single path.");
 	return (path);
 }
 
@@ -66,23 +77,24 @@ int	save_paths(t_queue *q, t_lem_in *lem, t_path *tmp)
 	int		*path;
 	int		nb;
 	int		s;
-	
+
 	nb = 0;
 	s = 0;
 	reset_int_array(&q->visited, q->len, 0);
 	while (bfs(lem, q))
 	{
-		if (!(path = assign_path(lem, q)))
-			error_msg("Cant find a single path.");
+		path = assign_path(lem, q);
 		count_steps(q, &steps);
-		(steps < s || s == 0) ? s = steps : 0;
+		if (steps < s || s == 0)
+			s = steps;
 		mark_path(lem, q);
-		if (!(tmp[nb].path = ft_memalloc((sizeof(int)) * (steps + 1))))
+		tmp[nb].path = ft_memalloc((sizeof(int)) * (steps + 1));
+		if (!tmp[nb].path)
 			error_msg("Assign path malloc\n");
 		ft_memcpy(tmp[nb].path, path, ((steps + 1) * sizeof(int)));
 		tmp[nb].len = steps + 1;
 		tmp[nb].div = 0;
-		ft_memdel((void*)&path);
+		ft_memdel((void *)&path);
 		nb += 1;
 	}
 	return (ant_algo(lem, nb, tmp, s));

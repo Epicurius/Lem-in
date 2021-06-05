@@ -1,11 +1,12 @@
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
-# include "../lib/libft/libft.h"
-# include "./lib/libft/get_next_line.h"
+# include "libft.h"
+# include "libpf.h"
 # include <stdio.h>
 # include <time.h>
 # include <stdbool.h> 
+# include "error_msg.h"
 
 # define START_ID 0
 # define END_ID 1
@@ -85,8 +86,7 @@ void				find_links(char *line, t_lem_in *lem);
 t_room				*find_room(t_room *root, char *name);
 int					room_type(t_lem_in *lem, char *line);
 t_room				*new_room(t_lem_in *lem, char *line, int id);
-
-void				error_msg(char *str);
+void				error_msg(const char *restrict format, ...);
 int					rb_insert(t_room **root, t_room *node);
 void				rb_balance(t_room **node, int am_i_left);
 void				balance_black_uncle_left(t_room **node, int am_i_left);
@@ -106,14 +106,16 @@ int					ant_algo(t_lem_in *lem, int path_nb, t_path *tmp, int s);
 t_room				*get_room(t_list *ptr);
 t_list				*find_link(t_room *r, int e);
 void				lem_free_tree(t_room **root);
-
 void				print_input(char **line, unsigned char i);
 void				print_ants(t_lem_in *lem);
 void				print_flows(t_lem_in *lem, t_path *tmp, int path_nb, int moves);
 void				print_check(t_lem_in *lem);
 void				print_queue(t_lem_in *lem, t_queue *q, int i);
-
+t_list				*find_link(t_room *r, int e);
+void				save_flow(t_queue *q, t_lem_in *lem);
+void				add_to_queue(t_queue *q, int room, int id);
+void				free_paths(t_path *paths, int len);
+t_room				*follow_neg_flow(t_queue *q, t_room *r, t_lem_in *lem);
 t_room				*find_neg_flow(t_queue *q, t_room *r, t_lem_in *lem);
-
 
 #endif

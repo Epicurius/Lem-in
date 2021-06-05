@@ -6,22 +6,36 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 17:20:15 by nneronin          #+#    #+#             */
-/*   Updated: 2020/08/12 17:24:10 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/05 17:08:14 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
-#include "../error_msg.h"
 
-t_room 	*new_room(t_lem_in *lem, char *line, int id)
+static void	start_end_rooms(t_lem_in *lem, t_room *room, int id)
 {
-	char **tmp;
-	t_room *room;
+	if (id == START_ID)
+	{
+		if (lem->start)
+			error_msg("Duplicate Start rooms!");
+		lem->start = room;
+	}
+	else if (id == END_ID)
+	{
+		if (lem->end)
+			error_msg("Duplicate End rooms!");
+		lem->end = room;
+	}
+}
 
-	tmp = ft_strsplit(line, ' ');
+t_room	*new_room(t_lem_in *lem, char *line, int id)
+{
+	char	**tmp;
+	t_room	*room;
+
+	tmp = ft_strsplit(line, ' ', NULL);
 	if (tmp[0] && tmp[1] == NULL)
 	{
-		ft_strdel(&tmp[0]);
 		free(tmp);
 		lem->room_nb -= 1;
 		return (NULL);
@@ -35,25 +49,16 @@ t_room 	*new_room(t_lem_in *lem, char *line, int id)
 	room->left = NULL;
 	room->right = NULL;
 	room->parent = NULL;
-	room->links_nb = 0;
-	room->weight = 0;
 	room->flag = RB_RED;
-	ft_strdel(&tmp[0]);
-	ft_strdel(&tmp[1]);
-	ft_strdel(&tmp[2]);
 	free(tmp);
-	if (id == START_ID)
-		lem->start = room;
-	else if (id == END_ID)
-		lem->end = room;
+	start_end_rooms(lem, room, id);
 	room->id = id;
 	return (room);
-
 }
 
-int		room_type(t_lem_in *lem, char *line)
+int	room_type(t_lem_in *lem, char *line)
 {
-	int i;
+	int	i;
 
 	if (line[0] == '#')
 	{
@@ -71,7 +76,7 @@ int		room_type(t_lem_in *lem, char *line)
 
 t_room	*find_room(t_room *root, char *name)
 {
-	int	val;
+	int		val;
 	t_room	*node;
 
 	node = root;
@@ -82,7 +87,10 @@ t_room	*find_room(t_room *root, char *name)
 		val = ft_strcmp(node->name, name);
 		if (val == 0)
 			return (node);
-		node = val > 0 ? node->left : node->right;
+		if (val > 0)
+			node = node->left;
+		else
+			node = node->right;
 	}
 	return (NULL);
 }

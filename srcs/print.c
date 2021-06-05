@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/05 18:29:38 by nneronin          #+#    #+#             */
+/*   Updated: 2021/06/05 18:29:50 by nneronin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../lem_in.h"
 
 void	print_flows(t_lem_in *lem, t_path *tmp, int path_nb, int moves)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	ft_putstr("~~~~~~~~~~~~~~~~~~ ");
@@ -44,7 +55,7 @@ void	print_check(t_lem_in *lem)
 
 void	print_queue(t_lem_in *lem, t_queue *q, int i)
 {
-	int x;
+	int	x;
 
 	x = -1;
 	while (++x < q->position)

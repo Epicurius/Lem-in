@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 15:44:42 by nneronin          #+#    #+#             */
-/*   Updated: 2020/08/12 17:48:31 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/05 18:30:48 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static inline void	print_ant(long ant, char *room)
 
 void	start_kick(t_lem_in *lem, int *name)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (PATH[i].len != 0)
@@ -42,8 +42,8 @@ void	start_kick(t_lem_in *lem, int *name)
 
 void	move_along(t_lem_in *lem, int *end_ants)
 {
-	int i;
-	int c;
+	int	i;
+	int	c;
 
 	i = 0;
 	while (lem->path_l.paths[i].len != 0)
@@ -53,7 +53,8 @@ void	move_along(t_lem_in *lem, int *end_ants)
 		{
 			if (ID[PATH[i].path[c]]->ant_id != 0)
 			{
-				print_ant(ID[PATH[i].path[c]]->ant_id, ID[PATH[i].path[c + 1]]->name);
+				print_ant(ID[PATH[i].path[c]]->ant_id,
+					ID[PATH[i].path[c + 1]]->name);
 				ID[PATH[i].path[c + 1]]->ant_id = ID[PATH[i].path[c]]->ant_id;
 				ID[PATH[i].path[c]]->ant_id = 0;
 				if (ID[PATH[i].path[c + 1]]->id == END_ID)
@@ -67,8 +68,8 @@ void	move_along(t_lem_in *lem, int *end_ants)
 
 void	print_ants(t_lem_in *lem)
 {
-	int name;
-	int end_ants;
+	int	name;
+	int	end_ants;
 
 	name = 1;
 	end_ants = 0;

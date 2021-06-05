@@ -6,13 +6,13 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:11:02 by nneronin          #+#    #+#             */
-/*   Updated: 2020/08/12 17:10:00 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/05 18:45:07 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
 
-void					lem_free_tree(t_room **root)
+void	lem_free_tree(t_room **root)
 {
 	t_list	*tmp;
 
@@ -24,7 +24,8 @@ void					lem_free_tree(t_room **root)
 		lem_free_tree(&((*root)->right));
 	if ((*root)->name)
 		free((*root)->name);
-	if ((tmp = (*root)->link))
+	tmp = (*root)->link;
+	if (tmp)
 	{
 		while (tmp)
 		{
@@ -37,7 +38,7 @@ void					lem_free_tree(t_room **root)
 	*root = 0;
 }
 
-void				rb_balance(t_room **node, int am_i_left)
+void	rb_balance(t_room **node, int am_i_left)
 {
 	t_room	*uncle;
 	t_room	*parent;
@@ -74,7 +75,8 @@ static inline int	launch_recursive(t_room **root, t_room **node)
 		(*root) = *node;
 		return (0);
 	}
-	else if (!(val = ft_strcmp((*root)->name, (*node)->name)))
+	val = ft_strcmp((*root)->name, (*node)->name);
+	if (!val)
 		return (-1);
 	else if (val > 0 && (*root)->left)
 		return (launch_recursive(&((*root)->left), node));
@@ -94,7 +96,10 @@ int	rb_insert(t_room **root, t_room *node)
 		return (-1);
 	if (launch_recursive(root, &node) == -1)
 		return (-1);
-	rb_balance(&node, (node->parent && node->parent->left == node ? 1 : 0));
+	if (node->parent && node->parent->left == node)
+		rb_balance(&node, 1);
+	else
+		rb_balance(&node, 0);
 	while (node->parent != NULL)
 		node = node->parent;
 	*root = node;

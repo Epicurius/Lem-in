@@ -6,12 +6,11 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 11:06:49 by nneronin          #+#    #+#             */
-/*   Updated: 2020/08/14 10:58:52 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/05 17:04:59 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
-#include "../error_msg.h"
 
 void	print_input(char **line, unsigned char i)
 {
@@ -35,8 +34,8 @@ void	read_links(char *line, t_lem_in *lem)
 
 char	*read_rooms(char *line, t_lem_in *lem)
 {
-	t_room *room;
-	int id;
+	int		id;
+	t_room	*room;
 
 	while (get_next_line(0, &line))
 	{
@@ -50,7 +49,8 @@ char	*read_rooms(char *line, t_lem_in *lem)
 		}
 		else if (id != -1)
 		{
-			if ((room = new_room(lem, line, id)) == NULL)
+			room = new_room(lem, line, id);
+			if (!room)
 				return (line);
 			rb_insert((&lem->tree), room);
 		}
@@ -69,7 +69,7 @@ void	read_ants(t_lem_in *lem, char *line)
 		{
 			lem->ants = ft_atoi(line);
 			print_input(&line, lem->flag.format);
-			if (lem->ants > 2147483647 || lem->ants <= 0)
+			if (lem->ants > 2147483647 || lem->ants < 0)
 				error_msg(WRONG_ANT_AMOUNT);
 			return ;
 		}
@@ -79,7 +79,7 @@ void	read_ants(t_lem_in *lem, char *line)
 
 void	read_input(t_lem_in *lem)
 {
-	char *line;
+	char	*line;
 
 	line = NULL;
 	lem->min_moves = NULL;
@@ -87,7 +87,8 @@ void	read_input(t_lem_in *lem)
 	line = read_rooms(line, lem);
 	if (lem->end == NULL || lem->start == NULL)
 		error_msg(MISSING_ROOM);
-	if (!(lem->id_table = ft_memalloc(sizeof(t_room *) * (lem->room_nb + 1))))
+	lem->id_table = ft_memalloc(sizeof(t_room *) * (lem->room_nb + 1));
+	if (!lem->id_table)
 		error_msg("Id_table malloc\n");
 	find_links(line, lem);
 	print_input(&line, lem->flag.format);

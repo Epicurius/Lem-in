@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 17:29:44 by nneronin          #+#    #+#             */
-/*   Updated: 2020/08/16 11:26:23 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/05 17:54:17 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int	if_next_bfs_lower(t_room *next, t_room *curr, t_queue *q)
 {
-	int pos;
-	int nw;
-	t_list *link;
+	int		pos;
+	int		nw;
+	t_list	*link;
 
 	link = find_link(curr, next->id);
 	if (link->content_size == 1)
@@ -35,16 +35,13 @@ static int	if_next_bfs_lower(t_room *next, t_room *curr, t_queue *q)
 
 static int	if_loop(t_lem_in *lem, t_room *curr, t_room *next, t_queue *q)
 {
-	int i;
+	int	i;
 
 	i = q->prev[curr->id];
 	while (i != END_ID && i != START_ID)
 	{
 		if (i == next->id || i == curr->id || i == q->prev[next->id])
-		{
-			//printf("Is loop, name:%s\n", lem->id_table[i]->name);
 			return (1);
-		}
 		i = q->prev[i];
 	}
 	return (0);
@@ -52,15 +49,10 @@ static int	if_loop(t_lem_in *lem, t_room *curr, t_room *next, t_queue *q)
 
 void	check_dist(t_lem_in *lem, t_queue *q, t_room *curr, t_room *next)
 {
-	//if (if_loop(lem, curr, next, q) || if_next_bfs_lower(next, curr, q))
-	//if (!if_next_bfs_lower(lem->id_table[q->prev[next->id]], next, q))
-	
-
 	if (next->id == START_ID || curr->id == START_ID || next == curr)
 		return ;
 	if (if_loop(lem, curr, next, q))
 		return ;
-	ft_putstr("adasd\n");
 	if (lem->id_table[q->prev[next->id]] != lem->start)
 		if (!if_loop(lem, lem->id_table[q->prev[next->id]], next, q))
 			q->prev[q->prev[next->id]] = next->id;

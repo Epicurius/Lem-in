@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/06/04 17:54:23 by nneronin          #+#    #+#              #
+#    Updated: 2021/06/05 18:15:06 by nneronin         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = lem-in
 SOURCE = ./error.c\
 		./main.c\
@@ -9,6 +21,8 @@ SOURCE = ./error.c\
 		./read_rooms.c\
 		./algo.c\
 		./path_find.c\
+		./path_find_utils.c\
+		./negative_flow.c\
 		./help_func.c\
 		./save.c\
 		./bfs.c\
@@ -19,14 +33,16 @@ SOURCE = ./error.c\
 DIR_S = srcs
 SRCS = $(addprefix $(DIR_S)/,$(SOURCE))
 OBJS = $(SRCS:.c=.o)
-INCLUDES = ./lib/libft/libft.a
-ERROR_MSG = ./error_msg.h
-FLAGS = -Wall -Wextra -Werror
+
+LIB_DIR	:= ./lib
+LIBFT	:= -I $(LIB_DIR)/libft $(LIB_DIR)/libft/libft.a
+LIBPF	:= -I $(LIB_DIR)/libpf $(LIB_DIR)/libpf/libpf.a
+FLAGS	:= -Wall -Wextra -Werror
 
 all: $(NAME)
 
 $(NAME):
-	@gcc -o $(NAME) $(SRCS) $(INCLUDES)
+	@gcc -o $(NAME) $(SRCS) $(LIBFT) $(LIBPF)
 	@echo "$(NAME) was successfully created."
 clean:
 	@/bin/rm -f $(OBJS)
