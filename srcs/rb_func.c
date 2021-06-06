@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 11:05:55 by nneronin          #+#    #+#             */
-/*   Updated: 2020/08/05 11:22:08 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/06 09:37:20 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ void	balance_black_uncle_right(t_room **node, int am_i_left)
 
 	if (am_i_left)
 		simplify_to_right(node);
-	*node = am_i_left ? *node : (*node)->parent;
+	if (!am_i_left)
+		*node = (*node)->parent;
 	(*node)->flag &= ~RB_RED;
 	(*node)->parent->flag |= RB_RED;
-	if ((tmp = (*node)->left))
+	tmp = (*node)->left;
+	if (tmp)
 		tmp->parent = (*node)->parent;
 	(*node)->left = (*node)->parent;
 	(*node)->left->right = tmp;
@@ -69,10 +71,12 @@ void	balance_black_uncle_left(t_room **node, int am_i_left)
 
 	if (!am_i_left)
 		simplify_to_left(node);
-	*node = !am_i_left ? *node : (*node)->parent;
+	if (am_i_left)
+		*node = (*node)->parent;
 	(*node)->flag &= ~RB_RED;
 	(*node)->parent->flag |= RB_RED;
-	if ((tmp = (*node)->right))
+	tmp = (*node)->right;
+	if (tmp)
 		tmp->parent = (*node)->parent;
 	(*node)->right = (*node)->parent;
 	(*node)->right->left = tmp;

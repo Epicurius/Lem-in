@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 15:44:42 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/05 18:30:48 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/06 09:26:35 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ void	start_kick(t_lem_in *lem, int *name)
 	int	i;
 
 	i = 0;
-	while (PATH[i].len != 0)
+	while (lem->path_l.paths[i].len != 0)
 	{
-		if (PATH[i].div > 0)
+		if (lem->path_l.paths[i].div > 0)
 		{
-			print_ant(*name, ID[PATH[i].path[1]]->name);
-			ID[PATH[i].path[1]]->ant_id = *name;
+			print_ant(*name, lem->id_table[lem->path_l.paths[i].path[1]]->name);
+			lem->id_table[lem->path_l.paths[i].path[1]]->ant_id = *name;
 			*name += 1;
-			PATH[i].div -= 1;
+			lem->path_l.paths[i].div -= 1;
 		}
 		i += 1;
 	}
@@ -51,13 +51,15 @@ void	move_along(t_lem_in *lem, int *end_ants)
 		c = lem->path_l.paths[i].len - 2;
 		while (c > 0)
 		{
-			if (ID[PATH[i].path[c]]->ant_id != 0)
+			if (lem->id_table[lem->path_l.paths[i].path[c]]->ant_id != 0)
 			{
-				print_ant(ID[PATH[i].path[c]]->ant_id,
-					ID[PATH[i].path[c + 1]]->name);
-				ID[PATH[i].path[c + 1]]->ant_id = ID[PATH[i].path[c]]->ant_id;
-				ID[PATH[i].path[c]]->ant_id = 0;
-				if (ID[PATH[i].path[c + 1]]->id == END_ID)
+				print_ant(lem->id_table[lem->path_l.paths[i].path[c]]->ant_id,
+					lem->id_table[lem->path_l.paths[i].path[c + 1]]->name);
+				lem->id_table[lem->path_l.paths[i].path[c + 1]]->ant_id
+					= lem->id_table[lem->path_l.paths[i].path[c]]->ant_id;
+				lem->id_table[lem->path_l.paths[i].path[c]]->ant_id = 0;
+				if (lem->id_table[lem->path_l.paths[i].path[c + 1]]->id
+					== END_ID)
 					*end_ants += 1;
 			}
 			c -= 1;

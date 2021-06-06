@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:11:02 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/05 18:45:07 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/06 09:49:58 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,18 @@ void	rb_balance(t_room **node, int am_i_left)
 		(*node)->flag &= ~RB_RED;
 	if (!parent || !(parent->flag & RB_RED))
 		return ;
-	is_parent_left = parent->parent && parent->parent->left == parent ? 1 : 0;
-	uncle = is_parent_left ? parent->parent->right : parent->parent->left;
+	is_parent_left = (parent->parent && parent->parent->left == parent);
+	if (is_parent_left)
+		uncle = parent->parent->right;
+	else
+		uncle = parent->parent->left;
 	if (uncle && uncle->flag & RB_RED)
 	{
 		parent->flag &= ~RB_RED;
 		uncle->flag &= ~RB_RED;
 		parent->parent->flag |= RB_RED;
 		parent = parent->parent;
-		is_parent_left = (parent->parent && parent->parent->left == parent) ? 1 : 0;
+		is_parent_left = (parent->parent && parent->parent->left == parent);
 		rb_balance(&parent, is_parent_left);
 	}
 	else if (is_parent_left)
