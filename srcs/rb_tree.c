@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:11:02 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/06 09:49:58 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/06 18:07:27 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	lem_free_tree(t_room **root)
 	*root = 0;
 }
 
-void	rb_balance(t_room **node, int am_i_left)
+void	rb_balance(t_room **node, int is_left)
 {
 	t_room	*uncle;
 	t_room	*parent;
@@ -64,9 +64,9 @@ void	rb_balance(t_room **node, int am_i_left)
 		rb_balance(&parent, is_parent_left);
 	}
 	else if (is_parent_left)
-		balance_black_uncle_left(node, am_i_left);
+		balance_black_uncle_left(node, is_left);
 	else
-		balance_black_uncle_right(node, am_i_left);
+		balance_black_uncle_right(node, is_left);
 }
 
 static inline int	launch_recursive(t_room **root, t_room **node)

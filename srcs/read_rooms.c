@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 17:20:15 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/05 17:08:14 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/06 18:33:50 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ t_room	*new_room(t_lem_in *lem, char *line, int id)
 	room->parent = NULL;
 	room->flag = RB_RED;
 	free(tmp);
+	if (find_room(lem->tree, room->name))
+		error_msg("%s <- Duplicate rooms.\n", line);
 	start_end_rooms(lem, room, id);
 	room->id = id;
 	return (room);

@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 09:19:18 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/06 09:25:30 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/06 18:05:41 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ typedef struct s_room
 	struct s_room	*left;
 	struct s_room	*right;
 	struct s_room	*parent;
-	t_list			*link;
 	size_t			flag;
+	t_list			*link;
 	size_t			links_nb;
 	size_t			weight;
 	int				id;

@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 11:05:55 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/06 09:37:20 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/06 18:09:07 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ static inline void	simplify_to_right(t_room **node)
 	(*node)->right->left = tmp;
 }
 
-void	balance_black_uncle_right(t_room **node, int am_i_left)
+void	balance_black_uncle_right(t_room **node, int is_left)
 {
 	t_room	*tmp;
 
-	if (am_i_left)
+	if (is_left)
 		simplify_to_right(node);
-	if (!am_i_left)
+	if (!is_left)
 		*node = (*node)->parent;
 	(*node)->flag &= ~RB_RED;
 	(*node)->parent->flag |= RB_RED;
@@ -65,13 +65,13 @@ static inline void	simplify_to_left(t_room **node)
 	(*node)->left->right = tmp;
 }
 
-void	balance_black_uncle_left(t_room **node, int am_i_left)
+void	balance_black_uncle_left(t_room **node, int is_left)
 {
 	t_room	*tmp;
 
-	if (!am_i_left)
+	if (!is_left)
 		simplify_to_left(node);
-	if (am_i_left)
+	if (is_left)
 		*node = (*node)->parent;
 	(*node)->flag &= ~RB_RED;
 	(*node)->parent->flag |= RB_RED;

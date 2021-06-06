@@ -6,7 +6,7 @@
 #    By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/04 17:54:23 by nneronin          #+#    #+#              #
-#    Updated: 2021/06/05 18:15:06 by nneronin         ###   ########.fr        #
+#    Updated: 2021/06/06 18:06:12 by nneronin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,11 @@ NAME = lem-in
 SOURCE = ./error.c\
 		./main.c\
 		./print.c\
-		./rb_func.c\
-		./rb_tree.c\
 		./read_input.c\
 		./read_links.c\
 		./read_rooms.c\
+		./rb_tree.c\
+		./rb_func.c\
 		./algo.c\
 		./path_find.c\
 		./path_find_utils.c\

@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 17:12:02 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/05 17:39:46 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/06 17:24:14 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ static void	connect_links(t_lem_in *lem, t_room *start_room, t_room *end_room)
 
 void	find_links(char *line, t_lem_in *lem)
 {
+	int		len;
 	char	*strt;
 	char	*end;
-	int		len;
 	t_room	*start_room;
 	t_room	*end_room;
 
