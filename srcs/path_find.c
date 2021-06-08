@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 10:05:32 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/05 18:21:06 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/08 18:42:30 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,5 @@ void	path_find(t_lem_in *lem, t_queue *q)
 		clear_queue(q);
 	}
 	if (t == 0)
-		error_msg("No paths.\n");
+		error_msg("No paths.");
 }

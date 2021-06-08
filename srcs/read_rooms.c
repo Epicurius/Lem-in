@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 17:20:15 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/06 18:33:50 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/08 19:18:28 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,28 @@ static void	start_end_rooms(t_lem_in *lem, t_room *room, int id)
 
 t_room	*new_room(t_lem_in *lem, char *line, int id)
 {
+	int		nb;
 	char	**tmp;
 	t_room	*room;
 
-	tmp = ft_strsplit(line, ' ', NULL);
-	if (tmp[0] && tmp[1] == NULL)
+	if (line[0] == '#')
+		error_msg("Comment after star or end: %s", line);
+	tmp = ft_strsplit(line, ' ', &nb);
+	if (nb != 3)
 	{
 		free(tmp);
-		lem->room_nb -= 1;
-		return (NULL);
-	}
-	if (tmp[0] == NULL || tmp[1] == NULL || tmp[2] == NULL)
+		if (nb == 1 && ft_strstr(line, "-") && line[0] != '#')
+			return (NULL);
 		error_msg(EXTRA_CRAP);
+	}
 	room = (t_room *)ft_memalloc(sizeof(t_room));
 	room->name = ft_strdup(tmp[0]);
 	room->y = ft_atoi(tmp[2]);
 	room->x = ft_atoi(tmp[1]);
-	room->left = NULL;
-	room->right = NULL;
-	room->parent = NULL;
 	room->flag = RB_RED;
 	free(tmp);
 	if (find_room(lem->tree, room->name))
-		error_msg("%s <- Duplicate rooms.\n", line);
+		error_msg("%s <- Duplicate rooms.", line);
 	start_end_rooms(lem, room, id);
 	room->id = id;
 	return (room);

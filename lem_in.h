@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 09:19:18 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/06 19:09:09 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/08 17:41:15 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_room
 
 typedef struct s_lem_in
 {
+	char			*input;
 	int				room_nb;
 	int				max_paths;
 	long			ants;
@@ -117,7 +118,7 @@ int					ant_algo(t_lem_in *lem, int path_nb, t_path *tmp, int s);
 t_room				*get_room(t_list *ptr);
 t_list				*find_link(t_room *r, int e);
 void				lem_free_tree(t_room **root);
-void				print_input(char **line, unsigned char i);
+//void				print_input(char **line, unsigned char i);
 void				print_ants(t_lem_in *lem);
 void				print_flows(t_lem_in *lem, t_path *tmp, int path_nb,
 						int moves);
