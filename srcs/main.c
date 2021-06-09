@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 17:40:48 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/09 17:03:48 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/09 17:45:03 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	main1(int ac, char **av)
 	if (lem->flag.info == 1)
 		print_check(lem);
 	lem_free_tree(&lem->tree);
+	ft_memdel((void *)&lem->path_l.paths);
 	ft_memdel((void *)&lem->id_table);
 	free(lem);
 	return (0);
