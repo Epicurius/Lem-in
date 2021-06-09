@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 15:44:42 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/06 09:26:35 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/09 16:50:12 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	move_along(t_lem_in *lem, int *end_ants)
 		c = lem->path_l.paths[i].len - 2;
 		while (c > 0)
 		{
+			//ft_printf("%d\n", lem->id_table[lem->path_l.paths[i].path[c]]->ant_id);
 			if (lem->id_table[lem->path_l.paths[i].path[c]]->ant_id != 0)
 			{
 				print_ant(lem->id_table[lem->path_l.paths[i].path[c]]->ant_id,

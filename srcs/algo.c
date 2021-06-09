@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:23:22 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/06 10:00:10 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/09 17:12:23 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void	init_queue(t_lem_in *lem, t_queue *q)
 	q->queue = NULL;
 	q->visited = NULL;
 	q->len = lem->room_nb;
-	q->prev = ft_memalloc(sizeof(int) * q->len);
+	q->prev = ft_memalloc(sizeof(int) * (q->len + 1));
 	if (!q->prev)
 		error_msg("q->prev malloc\n");
-	q->queue = ft_memalloc(sizeof(int) * (q->len + 10));
+	q->queue = ft_memalloc(sizeof(int) * (q->len + 1));
 	if (!q->prev)
 		error_msg("q->queue malloc\n");
-	q->visited = ft_memalloc(sizeof(int) * q->len);
+	q->visited = ft_memalloc(sizeof(int) * (q->len + 1));
 	if (!q->visited)
 		error_msg("q->visited malloc\n");
 	clear_queue(q);
@@ -55,7 +55,7 @@ void	algo(t_lem_in *lem)
 	t_queue	q;
 
 	init_queue(lem, &q);
-	lem->path_l.paths = ft_memalloc(sizeof(t_path) * (lem->max_paths));
+	lem->path_l.paths = ft_memalloc(sizeof(t_path) * (lem->max_paths + 1));
 	if (!lem->path_l.paths)
 		error_msg("Malloc: lem->path_l.paths.");
 	path_find(lem, &q);

@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 18:22:17 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/05 18:28:10 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/09 17:15:30 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	save_paths(t_queue *q, t_lem_in *lem, t_path *tmp)
 		tmp[nb].path = ft_memalloc((sizeof(int)) * (steps + 1));
 		if (!tmp[nb].path)
 			error_msg("Assign path malloc\n");
-		ft_memcpy(tmp[nb].path, path, ((steps + 1) * sizeof(int)));
+		ft_memcpy(tmp[nb].path, path, sizeof(int) * (steps + 1));
 		tmp[nb].len = steps + 1;
 		tmp[nb].div = 0;
 		ft_memdel((void *)&path);

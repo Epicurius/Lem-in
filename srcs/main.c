@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 17:40:48 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/06 19:02:48 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/09 17:03:48 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	read_args(t_lem_in *lem, int ac, char **av)
 	}
 }
 
-int	main(int ac, char **av)
+int	main1(int ac, char **av)
 {
 	t_lem_in	*lem;
 
@@ -63,4 +63,12 @@ int	main(int ac, char **av)
 	ft_memdel((void *)&lem->id_table);
 	free(lem);
 	return (0);
+}
+
+int	main(int ac, char **av)
+{
+	main1(ac, av);
+	//while (1)
+	//	;
+	return (1);
 }

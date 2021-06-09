@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:11:02 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/09 11:05:20 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/09 16:53:01 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,11 @@ void	lem_free_tree(t_room **root)
 	if ((*root)->name)
 		free((*root)->name);
 	tmp = (*root)->link;
-	if (tmp)
+	while (tmp)
 	{
-		while (tmp)
-		{
-			(*root)->link = (*root)->link->next;
-			free(tmp);
-			tmp = (*root)->link;
-		}
+		(*root)->link = (*root)->link->next;
+		free(tmp);
+		tmp = (*root)->link;
 	}
 	free(*root);
 	*root = 0;

@@ -1,0 +1,39 @@
+5
+##start
+s 0 0
+a_in 1 1
+a_out 1 1
+b_in 2 1
+b_out 2 1
+d_in 1 0
+d_out 1 0
+c_in 2 0
+c_out 2 0
+##end
+t 3 0
+s-a_in
+s-d_in
+#s-a_out
+#s-d_out
+a_out-c_in
+a_out-b_in
+a_out-d_in
+d_out-c_in
+d_out-a_in
+b_out-c_in
+b_out-t
+c_out-t
+b_in-t
+c_in-t
+a_in-a_out
+b_in-b_out
+b_in-c_out
+c_in-c_out
+d_in-d_out
+d_in-c_out
+
+L1-d_in L2-a_in 
+L1-c_out L2-a_out L3-d_in L4-a_in 
+L1-t L3-c_out L2-b_in L4-a_out L5-d_in 
+L3-t L5-c_out L2-t L4-b_in 
+L5-t L4-t 
