@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 17:12:02 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/08 19:02:24 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/09 11:06:55 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	find_links(char *line, t_lem_in *lem)
 	arr = ft_strpart(line, "-", &nb);
 	if (nb != 2)
 		error_msg("Link wrong format: %s", line);
-	r1 = find_room(lem->tree, arr[0]); ///Here, find room should return content
+	r1 = find_room(lem->tree, arr[0]);
 	r2 = find_room(lem->tree, arr[1]);
 	if (!r1)
 		error_msg("No room found with name: %s.", arr[0]);

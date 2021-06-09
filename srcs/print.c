@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 18:29:38 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/05 18:29:50 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/08 19:31:57 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,12 @@ void	print_flows(t_lem_in *lem, t_path *tmp, int path_nb, int moves)
 
 void	print_check(t_lem_in *lem)
 {
-	ft_putstr("==================INFO==================\n");
-	if (lem->min_moves != NULL)
-		fprintf(stderr, "%s\n", lem->min_moves);
-	ft_putstr("Moves:\t\t");
-	ft_putnbr(lem->path_l.moves);
-	write(1, "\n", 1);
-	ft_putstr("Ants:\t\t");
-	ft_putnbr(lem->ants);
-	write(1, "\n", 1);
-	ft_putstr("Room_nb:\t");
-	ft_putnbr(lem->room_nb);
-	write(1, "\n", 1);
-	ft_putstr("Links_nb:\t");
-	ft_putnbr(lem->links_nb);
-	write(1, "\n", 1);
-	ft_putstr("========================================\n");
+	ft_printf("{GREEN}==================INFO=================={RESET}\n");
+	ft_printf("\tMoves:\t%d\n", lem->path_l.moves);
+	ft_printf("\tAnts:\t%d\n", lem->ants);
+	ft_printf("\tRooms:\t%d\n", lem->room_nb);
+	ft_printf("\tLinks:\t%d\n", lem->links_nb);
+	ft_printf("{GREEN}========================================{RESET}\n");
 }
 
 void	print_queue(t_lem_in *lem, t_queue *q, int i)
