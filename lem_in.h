@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 09:19:18 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/08 17:41:15 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/10 16:14:10 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,6 @@ void				add_to_queue(t_queue *q, int room, int id);
 void				free_paths(t_path *paths, int len);
 t_room				*follow_neg_flow(t_queue *q, t_room *r, t_lem_in *lem);
 t_room				*find_neg_flow(t_queue *q, t_room *r, t_lem_in *lem);
+void				free_lem(t_lem_in *lem);
 
 #endif

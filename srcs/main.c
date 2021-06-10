@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 17:40:48 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/09 17:45:03 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/10 16:15:42 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,8 @@ int	main1(int ac, char **av)
 {
 	t_lem_in	*lem;
 
-	lem = (t_lem_in *)malloc(sizeof(*lem));
+	lem = (t_lem_in *)ft_memalloc(sizeof(*lem));
 	read_args(lem, ac, av);
-	lem->start = NULL;
-	lem->tree = NULL;
-	lem->end = NULL;
 	lem->room_nb = 2;
 	lem->links_nb = 0;
 	read_input(lem);
@@ -59,10 +56,7 @@ int	main1(int ac, char **av)
 	algo(lem);
 	if (lem->flag.info == 1)
 		print_check(lem);
-	lem_free_tree(&lem->tree);
-	ft_memdel((void *)&lem->path_l.paths);
-	ft_memdel((void *)&lem->id_table);
-	free(lem);
+	free_lem(lem);
 	return (0);
 }
 

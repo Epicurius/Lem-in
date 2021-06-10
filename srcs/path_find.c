@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 10:05:32 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/09 17:42:12 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/10 16:34:22 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,17 @@ void	path_find2(t_lem_in *lem, t_path *tmp, int moves)
 	if (lem->path_l.moves == 0 || lem->path_l.moves >= moves)
 	{
 		free_paths(lem->path_l.paths, lem->max_paths);
-		lem->path_l.paths = ft_memalloc(sizeof(t_path) * (lem->max_paths + 1)); // 10
+		lem->path_l.paths = ft_memalloc(sizeof(t_path) * lem->max_paths); // 10
 		if (!lem->path_l.paths)
 			error_msg("Malloc: lem->path_l.paths.");
 		i = -1;
 		while (++i < lem->max_paths)
 			ft_memcpy(&lem->path_l.paths[i], &tmp[i], sizeof(tmp[i]));
 		lem->path_l.moves = moves;
-		//free(tmp);
+		free(tmp);
 	}
-	//for (int i = 0; i < (lem->max_paths + 10); i++)
-	//	free(tmp[i].path);
-	free(tmp);
-	/*
 	else
-	{
-		if (lem->flag.full == 0)
-			return (free_paths(tmp, lem->max_paths));
-		free_paths(tmp, lem->max_paths);
-	}*/
+		return (free_paths(tmp, lem->max_paths));
 }
 
 void	path_find(t_lem_in *lem, t_queue *q)
@@ -93,7 +85,7 @@ void	path_find(t_lem_in *lem, t_queue *q)
 	while (optimise_flow(lem, q, &t))
 	{
 		save_flow(q, lem);
-		tmp = ft_memalloc(sizeof(t_path) * (lem->max_paths + 1));  //10
+		tmp = ft_memalloc(sizeof(t_path) * lem->max_paths);
 		if (!tmp)
 			error_msg("Malloc: lem->path_l.paths.");
 		path_find2(lem, tmp, save_paths(q, lem, tmp));

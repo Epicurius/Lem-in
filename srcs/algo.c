@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:23:22 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/09 17:44:42 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/10 16:21:05 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,25 @@ void	init_queue(t_lem_in *lem, t_queue *q)
 	q->queue = NULL;
 	q->visited = NULL;
 	q->len = lem->room_nb;
-	q->prev = ft_memalloc(sizeof(int) * (q->len + 1));
+	q->prev = ft_memalloc(sizeof(int) * q->len);
 	if (!q->prev)
 		error_msg("q->prev malloc\n");
-	q->queue = ft_memalloc(sizeof(int) * (q->len + 1));
+	q->queue = ft_memalloc(sizeof(int) * q->len);
 	if (!q->prev)
 		error_msg("q->queue malloc\n");
-	q->visited = ft_memalloc(sizeof(int) * (q->len + 1));
+	q->visited = ft_memalloc(sizeof(int) * q->len);
 	if (!q->visited)
 		error_msg("q->visited malloc\n");
 	clear_queue(q);
 	reset_queue(q, START_ID, -1);
-	//ft_printf("%d %d\n", lem->start->links_nb, lem->end->links_nb);
 	if (lem->start->links_nb > lem->end->links_nb)
 		lem->max_paths = lem->end->links_nb;
 	else
 		lem->max_paths = lem->start->links_nb;
-	//ft_printf("%d %d\n", lem->max_paths, lem->ants);
 	if (lem->max_paths > lem->ants)
 		lem->max_paths = lem->max_paths + 1;
 	else
 		lem->max_paths = lem->ants + 1;
-	//error_msg("%d\n", lem->max_paths);
 }
 
 void	algo(t_lem_in *lem)
@@ -58,10 +55,12 @@ void	algo(t_lem_in *lem)
 	t_queue	q;
 
 	init_queue(lem, &q);
-	lem->path_l.paths = ft_memalloc(sizeof(t_path) * (lem->max_paths + 1));
+	lem->path_l.paths = ft_memalloc(sizeof(t_path) * lem->max_paths);
 	if (!lem->path_l.paths)
 		error_msg("Malloc: lem->path_l.paths.");
 	path_find(lem, &q);
+	if (lem->flag.queue || lem->flag.flows)
+		write(1, "\n", 1);
 	if (lem->flag.format == 0 || lem->flag.format == 1)
 		print_ants(lem);
 	ft_memdel((void *)&q.prev);
