@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 17:40:48 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/09 15:11:42 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/10 17:08:03 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 int	check_ant_curr_room_links(t_env *lem, int ant, t_room *room)
 {
-	t_list *curr;
+	t_list	*curr;
 
 	curr = lem->ants[ant]->link;
-	//ft_printf("%s %d\n", room->name, room->links_nb);
-	//ft_printf("%s\n", lem->ants[ant]->name);
 	while (curr)
 	{
-		//ft_printf("(%s %s)\n", ((t_room *)curr->content)->name, room->name);
 		if (ft_strequ(((t_room *)curr->content)->name, room->name))
 			return (1);
 		curr = curr->next;
@@ -31,7 +28,7 @@ int	check_ant_curr_room_links(t_env *lem, int ant, t_room *room)
 
 void	move_ants(t_env *lem, char **arr2)
 {
-	t_room *room;
+	t_room	*room;
 	int		ant;
 
 	room = find_room(lem->tree, arr2[1]);
@@ -68,13 +65,11 @@ void read_cmd(t_env *lem)
 
 	while (get_next_line(0, &line) && lem->end_nb < lem->ant_nb)
 	{
-		//ft_printf("%s\n", line);
 		i = -1;
 		arr1 = ft_strsplit(line, ' ', &nb1);
 		while (++i < nb1)
 		{
 			arr2 = ft_strpart(&arr1[i][1], "-", &nb2);
-			//ft_printf("%s->%s\n", arr2[0], arr2[1]);
 			move_ants(lem, arr2);
 			free(arr2);
 		}
@@ -102,7 +97,6 @@ int	main(int ac, char **av)
 		if (lem->ants[i] != lem->end)
 			error_msg("All ant didnt find end");
 	ft_printf("{GREEN}[OK]{RESET}\n");
-	lem_free_tree(&lem->tree);
-	free(lem);
+	free_lem(lem);
 	return (0);
 }

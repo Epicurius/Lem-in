@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 17:20:15 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/09 16:35:25 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/10 17:06:25 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ t_room	*new_room(t_lem_in *lem, char *line, int id)
 	room->name = ft_strdup(tmp[0]);
 	room->y = ft_atoi(tmp[2]);
 	room->x = ft_atoi(tmp[1]);
-	room->ant_id = 0;
 	room->flag = RB_RED;
 	free(tmp);
 	if (find_room(lem->tree, room->name))

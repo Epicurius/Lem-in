@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 10:05:32 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/10 16:34:22 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/10 17:04:51 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	path_find2(t_lem_in *lem, t_path *tmp, int moves)
 	if (lem->path_l.moves == 0 || lem->path_l.moves >= moves)
 	{
 		free_paths(lem->path_l.paths, lem->max_paths);
-		lem->path_l.paths = ft_memalloc(sizeof(t_path) * lem->max_paths); // 10
+		lem->path_l.paths = ft_memalloc(sizeof(t_path) * lem->max_paths);
 		if (!lem->path_l.paths)
 			error_msg("Malloc: lem->path_l.paths.");
 		i = -1;

@@ -6,37 +6,11 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:11:02 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/09 11:09:09 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/10 17:01:46 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../validator.h"
-
-void	lem_free_tree(t_room **root)
-{
-	t_list	*tmp;
-
-	if (!root || !*root)
-		return ;
-	if ((*root)->left)
-		lem_free_tree(&((*root)->left));
-	if ((*root)->right)
-		lem_free_tree(&((*root)->right));
-	if ((*root)->name)
-		free((*root)->name);
-	tmp = (*root)->link;
-	if (tmp)
-	{
-		while (tmp)
-		{
-			(*root)->link = (*root)->link->next;
-			free(tmp);
-			tmp = (*root)->link;
-		}
-	}
-	free(*root);
-	*root = 0;
-}
 
 void	rb_balance(t_room **node, int is_left)
 {

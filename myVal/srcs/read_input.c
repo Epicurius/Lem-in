@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 11:06:49 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/09 14:59:31 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/10 16:57:33 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	*read_rooms(char *line, t_env *lem)
 		id = room_type(lem, line);
 		if (id == START_ID || id == END_ID)
 		{
+			free(line);
 			get_next_line(0, &line);
 			room = new_room(lem, line, id);
 			rb_insert((&lem->tree), room);
@@ -49,6 +50,7 @@ char	*read_rooms(char *line, t_env *lem)
 				return (line);
 			rb_insert((&lem->tree), room);
 		}
+		free(line);
 	}
 	return (NULL);
 }
@@ -66,8 +68,10 @@ void	read_ants(t_env *lem, char *line)
 				error_msg(WRONG_ANT_AMOUNT);
 			lem->ants = ft_memalloc(sizeof(t_room *) * (ants + 1));
 			lem->ant_nb = ants;
+			free(line);
 			return ;
 		}
+		free(line);
 	}
 }
 

@@ -6,7 +6,7 @@
 #    By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/04 17:54:23 by nneronin          #+#    #+#              #
-#    Updated: 2021/06/09 12:29:00 by nneronin         ###   ########.fr        #
+#    Updated: 2021/06/10 17:01:35 by nneronin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ SOURCE = ./error.c\
 		./read_links.c\
 		./read_rooms.c\
 		./rb_tree.c\
-		./rb_func.c
+		./rb_func.c\
+		./free.c
 
 DIR_S = srcs
 SRCS = $(addprefix $(DIR_S)/,$(SOURCE))

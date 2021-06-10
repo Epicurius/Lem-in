@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 09:19:18 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/09 12:29:37 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/10 17:02:30 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void 	read_cmd(t_env *lem);
 int		main(int ac, char **av);
 void	balance_black_uncle_right(t_room **node, int is_left);
 void	balance_black_uncle_left(t_room **node, int is_left);
-void	lem_free_tree(t_room **root);
+void	free_lem(t_env *lem);
 void	rb_balance(t_room **node, int is_left);
 int		rb_insert(t_room **root, t_room *node);
 void	read_links(char *line, t_env *lem);
