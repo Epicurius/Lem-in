@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 09:19:18 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/10 16:14:10 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 13:57:46 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ typedef struct s_path
 	int				div;
 }					t_path;
 
-typedef struct s_path_l
+typedef struct s_lpath
 {
 	int				path_nb;
 	int				moves;
 	t_path			*paths;
-}					t_path_l;
+}					t_lpath;
 
 typedef struct s_room
 {
@@ -88,48 +88,48 @@ typedef struct s_lem_in
 	t_room			*end;
 	t_room			*start;
 	t_room			*tree;
-	t_path_l		path_l;
+	t_lpath		lpath;
 	t_args			flag;
-}					t_lem_in;
+}					t_env;
 
-void				read_input(t_lem_in *lem);
-void				find_links(char *line, t_lem_in *lem);
+void				read_input(t_env *lem);
+void				find_links(char *line, t_env *lem);
 t_room				*find_room(t_room *root, char *name);
-int					room_type(t_lem_in *lem, char *line);
-t_room				*new_room(t_lem_in *lem, char *line, int id);
+int					room_type(t_env *lem, char *line);
+t_room				*new_room(t_env *lem, char *line, int id);
 void				error_msg(const char *restrict format, ...);
 int					rb_insert(t_room **root, t_room *node);
 void				rb_balance(t_room **node, int am_i_left);
 void				balance_black_uncle_left(t_room **node, int am_i_left);
 void				balance_black_uncle_right(t_room **node, int am_i_left);
-void				algo(t_lem_in *lem);
+void				algo(t_env *lem);
 //int				only_num(char *str);
-void				path_find(t_lem_in *lem, t_queue *q);
-void				check_dist(t_lem_in *lem, t_queue *q, t_room *curr,
+void				path_find(t_env *lem, t_queue *q);
+void				check_dist(t_env *lem, t_queue *q, t_room *curr,
 						t_room *next);
-void				check_start_end(t_lem_in *lem, t_queue *q);
+void				check_start_end(t_env *lem, t_queue *q);
 void				clear_queue(t_queue *q);
 void				reset_queue(t_queue *q, int s, int e);
 void				reset_int_array(int **set, int length, int n);
-int					bfs(t_lem_in *lem, t_queue *q);
-int					save_paths(t_queue *q, t_lem_in *lem, t_path *tmp);
+int					bfs(t_env *lem, t_queue *q);
+int					save_paths(t_queue *q, t_env *lem, t_path *tmp);
 void				add_to_queue(t_queue *q, int room, int id);
-int					ant_algo(t_lem_in *lem, int path_nb, t_path *tmp, int s);
+int					ant_algo(t_env *lem, int path_nb, t_path *tmp, int s);
 t_room				*get_room(t_list *ptr);
 t_list				*find_link(t_room *r, int e);
 void				lem_free_tree(t_room **root);
 //void				print_input(char **line, unsigned char i);
-void				print_ants(t_lem_in *lem);
-void				print_flows(t_lem_in *lem, t_path *tmp, int path_nb,
+void				print_ants(t_env *lem);
+void				print_flows(t_env *lem, t_path *tmp, int path_nb,
 						int moves);
-void				print_check(t_lem_in *lem);
-void				print_queue(t_lem_in *lem, t_queue *q, int i);
+void				print_check(t_env *lem);
+void				print_queue(t_env *lem, t_queue *q, int i);
 t_list				*find_link(t_room *r, int e);
-void				save_flow(t_queue *q, t_lem_in *lem);
+void				save_flow(t_queue *q, t_env *lem);
 void				add_to_queue(t_queue *q, int room, int id);
 void				free_paths(t_path *paths, int len);
-t_room				*follow_neg_flow(t_queue *q, t_room *r, t_lem_in *lem);
-t_room				*find_neg_flow(t_queue *q, t_room *r, t_lem_in *lem);
-void				free_lem(t_lem_in *lem);
+t_room				*follow_neg_flow(t_queue *q, t_room *r, t_env *lem);
+t_room				*find_neg_flow(t_queue *q, t_room *r, t_env *lem);
+void				free_lem(t_env *lem);
 
 #endif

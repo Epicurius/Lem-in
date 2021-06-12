@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 17:45:57 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/05 17:47:49 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 13:55:01 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	reset_queue(t_queue *q, int s, int e)
 		q->visited[e] = 0;
 }
 
-void	check_start_end(t_lem_in *lem, t_queue *q)
+void	check_start_end(t_env *lem, t_queue *q)
 {
 	int		i;
 	t_list	*link;

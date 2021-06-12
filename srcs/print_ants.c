@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 15:44:42 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/10 17:05:44 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 13:57:46 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,44 +21,44 @@ static inline void	print_ant(long ant, char *room)
 	write(1, " ", 1);
 }
 
-void	start_kick(t_lem_in *lem, int *name)
+void	start_kick(t_env *lem, int *name)
 {
 	int	i;
 
 	i = 0;
-	while (lem->path_l.paths[i].len != 0)
+	while (lem->lpath.paths[i].len != 0)
 	{
-		if (lem->path_l.paths[i].div > 0)
+		if (lem->lpath.paths[i].div > 0)
 		{
-			print_ant(*name, lem->id_table[lem->path_l.paths[i].path[1]]->name);
-			lem->id_table[lem->path_l.paths[i].path[1]]->ant_id = *name;
+			print_ant(*name, lem->id_table[lem->lpath.paths[i].path[1]]->name);
+			lem->id_table[lem->lpath.paths[i].path[1]]->ant_id = *name;
 			*name += 1;
-			lem->path_l.paths[i].div -= 1;
+			lem->lpath.paths[i].div -= 1;
 		}
 		i += 1;
 	}
 	write(1, "\n", 1);
 }
 
-void	move_along(t_lem_in *lem, int *end_ants)
+void	move_along(t_env *lem, int *end_ants)
 {
 	int	i;
 	int	c;
 
 	i = 0;
-	while (lem->path_l.paths[i].len != 0)
+	while (lem->lpath.paths[i].len != 0)
 	{
-		c = lem->path_l.paths[i].len - 2;
+		c = lem->lpath.paths[i].len - 2;
 		while (c > 0)
 		{
-			if (lem->id_table[lem->path_l.paths[i].path[c]]->ant_id != 0)
+			if (lem->id_table[lem->lpath.paths[i].path[c]]->ant_id != 0)
 			{
-				print_ant(lem->id_table[lem->path_l.paths[i].path[c]]->ant_id,
-					lem->id_table[lem->path_l.paths[i].path[c + 1]]->name);
-				lem->id_table[lem->path_l.paths[i].path[c + 1]]->ant_id
-					= lem->id_table[lem->path_l.paths[i].path[c]]->ant_id;
-				lem->id_table[lem->path_l.paths[i].path[c]]->ant_id = 0;
-				if (lem->id_table[lem->path_l.paths[i].path[c + 1]]->id
+				print_ant(lem->id_table[lem->lpath.paths[i].path[c]]->ant_id,
+					lem->id_table[lem->lpath.paths[i].path[c + 1]]->name);
+				lem->id_table[lem->lpath.paths[i].path[c + 1]]->ant_id
+					= lem->id_table[lem->lpath.paths[i].path[c]]->ant_id;
+				lem->id_table[lem->lpath.paths[i].path[c]]->ant_id = 0;
+				if (lem->id_table[lem->lpath.paths[i].path[c + 1]]->id
 					== END_ID)
 					*end_ants += 1;
 			}
@@ -68,7 +68,7 @@ void	move_along(t_lem_in *lem, int *end_ants)
 	}
 }
 
-void	print_ants(t_lem_in *lem)
+void	print_ants(t_env *lem)
 {
 	int	name;
 	int	end_ants;

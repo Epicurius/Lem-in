@@ -6,13 +6,13 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 18:22:17 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/10 08:46:21 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 13:55:01 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
 
-static void	mark_path(t_lem_in *lem, t_queue *q)
+static void	mark_path(t_env *lem, t_queue *q)
 {
 	int	path;
 	int	i;
@@ -48,7 +48,7 @@ void	count_steps(t_queue *q, size_t *steps)
 	}
 }
 
-static int	*assign_path(t_lem_in *lem, t_queue *q)
+static int	*assign_path(t_env *lem, t_queue *q)
 {
 	size_t	steps;
 	int		*path;
@@ -71,7 +71,7 @@ static int	*assign_path(t_lem_in *lem, t_queue *q)
 	return (path);
 }
 
-int	save_paths(t_queue *q, t_lem_in *lem, t_path *tmp)
+int	save_paths(t_queue *q, t_env *lem, t_path *tmp)
 {
 	size_t	steps;
 	int		*path;

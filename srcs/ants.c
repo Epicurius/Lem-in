@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 17:15:03 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/05 17:53:34 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 13:55:01 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	move_from_start(t_path *tmp, int j, int *ants)
 	}
 }
 
-int	ant_algo(t_lem_in *lem, int path_nb, t_path *tmp, int s)
+int	ant_algo(t_env *lem, int path_nb, t_path *tmp, int s)
 {
 	int	max_ants;
 	int	c;

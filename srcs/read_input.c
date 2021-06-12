@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 11:06:49 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/09 16:49:08 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 13:55:01 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_input(char **line, unsigned char i)
 	ft_strdel(line);
 }
 
-void	read_links(char *line, t_lem_in *lem)
+void	read_links(char *line, t_env *lem)
 {
 	while (get_next_line(0, &line))
 	{
@@ -32,7 +32,7 @@ void	read_links(char *line, t_lem_in *lem)
 	}
 }
 
-char	*read_rooms(char *line, t_lem_in *lem)
+char	*read_rooms(char *line, t_env *lem)
 {
 	int		id;
 	t_room	*room;
@@ -61,7 +61,7 @@ char	*read_rooms(char *line, t_lem_in *lem)
 	return (NULL);
 }
 
-void	read_ants(t_lem_in *lem, char *line)
+void	read_ants(t_env *lem, char *line)
 {
 	while (get_next_line(0, &line))
 	{
@@ -77,7 +77,7 @@ void	read_ants(t_lem_in *lem, char *line)
 	}
 }
 
-void	read_input(t_lem_in *lem)
+void	read_input(t_env *lem)
 {
 	char	*line;
 

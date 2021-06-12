@@ -6,13 +6,13 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 17:40:48 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/12 11:39:42 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 13:55:01 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
 
-void	read_args(t_lem_in *lem, int ac, char **av)
+void	read_args(t_env *lem, int ac, char **av)
 {
 	int	i;
 
@@ -42,9 +42,9 @@ void	read_args(t_lem_in *lem, int ac, char **av)
 
 int	main(int ac, char **av)
 {
-	t_lem_in	*lem;
+	t_env	*lem;
 
-	lem = (t_lem_in *)ft_memalloc(sizeof(*lem));
+	lem = (t_env *)ft_memalloc(sizeof(*lem));
 	read_args(lem, ac, av);
 	lem->room_nb = 2;
 	lem->links_nb = 0;

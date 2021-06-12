@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 16:11:12 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/10 17:03:28 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 13:57:46 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ void	free_tree(t_room **root)
 	*root = 0;
 }
 
-void	free_lem(t_lem_in *lem)
+void	free_lem(t_env *lem)
 {
 	int	i;
 
 	i = -1;
 	free_tree(&lem->tree);
 	while (++i < lem->max_paths)
-		ft_memdel((void *)&lem->path_l.paths[i]);
-	ft_memdel((void *)&lem->path_l.paths);
+		ft_memdel((void *)&lem->lpath.paths[i]);
+	ft_memdel((void *)&lem->lpath.paths);
 	ft_memdel((void *)&lem->id_table);
 	free(lem);
 }

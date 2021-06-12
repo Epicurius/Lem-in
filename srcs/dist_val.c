@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 17:29:44 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/05 17:54:17 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 13:55:01 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	if_next_bfs_lower(t_room *next, t_room *curr, t_queue *q)
 	return (1);
 }
 
-static int	if_loop(t_lem_in *lem, t_room *curr, t_room *next, t_queue *q)
+static int	if_loop(t_env *lem, t_room *curr, t_room *next, t_queue *q)
 {
 	int	i;
 
@@ -47,7 +47,7 @@ static int	if_loop(t_lem_in *lem, t_room *curr, t_room *next, t_queue *q)
 	return (0);
 }
 
-void	check_dist(t_lem_in *lem, t_queue *q, t_room *curr, t_room *next)
+void	check_dist(t_env *lem, t_queue *q, t_room *curr, t_room *next)
 {
 	if (next->id == START_ID || curr->id == START_ID || next == curr)
 		return ;

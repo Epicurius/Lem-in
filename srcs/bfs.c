@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 17:48:51 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/05 17:52:34 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 13:55:01 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	find_connected(t_queue *q, t_room *r)
 	}
 }
 
-int	bfs(t_lem_in *lem, t_queue *q)
+int	bfs(t_env *lem, t_queue *q)
 {
 	int		i;
 	t_list	*link;

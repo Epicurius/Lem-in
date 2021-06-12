@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 18:05:08 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/05 18:12:07 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 13:55:01 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_list	*find_link(t_room *r, int e)
 	return (NULL);
 }
 
-void	save_flow(t_queue *q, t_lem_in *lem)
+void	save_flow(t_queue *q, t_env *lem)
 {
 	int		e;
 	int		s;

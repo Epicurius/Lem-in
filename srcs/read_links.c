@@ -6,13 +6,13 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 17:12:02 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/09 11:06:55 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 13:55:01 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
 
-static void	create_link(t_lem_in *lem, t_room *r1, t_room *r2)
+static void	create_link(t_env *lem, t_room *r1, t_room *r2)
 {
 	t_list	*node;
 
@@ -38,7 +38,7 @@ static void	create_link(t_lem_in *lem, t_room *r1, t_room *r2)
 	r2->links_nb += 1;
 }
 
-static void	connect_links(t_lem_in *lem, t_room *r1, t_room *r2)
+static void	connect_links(t_env *lem, t_room *r1, t_room *r2)
 {
 	create_link(lem, r1, r2);
 	if (lem->id_table[r1->id] == NULL)
@@ -48,7 +48,7 @@ static void	connect_links(t_lem_in *lem, t_room *r1, t_room *r2)
 	lem->links_nb += 1;
 }
 
-void	find_links(char *line, t_lem_in *lem)
+void	find_links(char *line, t_env *lem)
 {
 	int		nb;
 	char	**arr;

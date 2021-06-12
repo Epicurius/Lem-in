@@ -6,13 +6,13 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 17:20:15 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/10 17:06:25 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 13:55:01 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
 
-static void	start_end_rooms(t_lem_in *lem, t_room *room, int id)
+static void	start_end_rooms(t_env *lem, t_room *room, int id)
 {
 	if (id == START_ID)
 	{
@@ -28,7 +28,7 @@ static void	start_end_rooms(t_lem_in *lem, t_room *room, int id)
 	}
 }
 
-t_room	*new_room(t_lem_in *lem, char *line, int id)
+t_room	*new_room(t_env *lem, char *line, int id)
 {
 	int		nb;
 	char	**tmp;
@@ -57,7 +57,7 @@ t_room	*new_room(t_lem_in *lem, char *line, int id)
 	return (room);
 }
 
-int	room_type(t_lem_in *lem, char *line)
+int	room_type(t_env *lem, char *line)
 {
 	int	i;
 

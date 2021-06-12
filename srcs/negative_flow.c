@@ -6,13 +6,13 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 18:13:22 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/05 18:14:25 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 13:55:01 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
 
-t_room	*follow_neg_flow(t_queue *q, t_room *r, t_lem_in *lem)
+t_room	*follow_neg_flow(t_queue *q, t_room *r, t_env *lem)
 {
 	t_list	*link;
 	t_room	*curr;
@@ -30,7 +30,7 @@ t_room	*follow_neg_flow(t_queue *q, t_room *r, t_lem_in *lem)
 	return (find_neg_flow(q, r, lem));
 }
 
-t_room	*find_neg_flow(t_queue *q, t_room *r, t_lem_in *lem)
+t_room	*find_neg_flow(t_queue *q, t_room *r, t_env *lem)
 {
 	t_list	*link;
 	t_room	*curr;
