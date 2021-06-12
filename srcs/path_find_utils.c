@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 18:05:08 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/12 13:55:01 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 14:04:05 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ t_list	*find_link(t_room *r, int e)
 	curr = r->link;
 	while (curr)
 	{
-		if (get_room(curr)->id == e)
+		//if (get_room(curr)->id == e)
+		if (((t_room *)curr->content)->id == e)
 			return (curr);
 		curr = curr->next;
 	}

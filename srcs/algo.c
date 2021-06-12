@@ -6,16 +6,11 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 14:23:22 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/12 13:57:46 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 14:06:00 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lem_in.h"
-
-t_room	*get_room(t_list *ptr)
-{
-	return ((t_room *)(ptr->content));
-}
 
 void	clear_queue(t_queue *q)
 {
