@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 17:40:48 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/10 17:08:03 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 11:35:38 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,10 @@ void	move_ants(t_env *lem, char **arr2)
 	lem->ants[ant]->ant = ant;
 }
 
-void read_cmd(t_env *lem)
+void	read_cmd(t_env *lem)
 {
 	int		i;
-	int		nb1;
-	int		nb2;
+	int		nb;
 	char	*line;
 	char	**arr1;
 	char	**arr2;
@@ -66,27 +65,29 @@ void read_cmd(t_env *lem)
 	while (get_next_line(0, &line) && lem->end_nb < lem->ant_nb)
 	{
 		i = -1;
-		arr1 = ft_strsplit(line, ' ', &nb1);
-		while (++i < nb1)
+		if (ft_strstr(line, "[ERROR]"))
+			error_msg("No available paths.\n");
+		arr1 = ft_strsplit(line, ' ', &nb);
+		while (++i < nb)
 		{
-			arr2 = ft_strpart(&arr1[i][1], "-", &nb2);
+			arr2 = ft_strpart(&arr1[i][1], "-", NULL);
 			move_ants(lem, arr2);
 			free(arr2);
 		}
 		free(arr1);
 		free(line);
 	}
-
 }
 
 int	main(int ac, char **av)
 {
+	int		i;
 	t_env	*lem;
 
 	lem = (t_env *)ft_memalloc(sizeof(*lem));
 	lem->room_nb = 2;
 	read_input(lem);
-	int i = 0;
+	i = 0;
 	while (++i <= lem->ant_nb)
 		lem->ants[i] = lem->start;
 	lem->end_nb = 0;

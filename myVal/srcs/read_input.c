@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 11:06:49 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/10 16:57:33 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 09:17:05 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*read_rooms(char *line, t_env *lem)
 
 void	read_ants(t_env *lem, char *line)
 {
-	int ants;
+	int	ants;
 
 	while (get_next_line(0, &line))
 	{

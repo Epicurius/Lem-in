@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 18:29:38 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/10 17:05:29 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/12 09:19:11 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	print_check(t_lem_in *lem)
 	ft_dprintf(2, "{GREEN}==================INFO=================={RESET}\n");
 	if (lem->min_moves != NULL)
 	{
-		ft_dprintf(2, "%s\n", lem->min_moves);
+		ft_dprintf(2, "{YELLOW}%s{RESET}\n", lem->min_moves);
 		free(lem->min_moves);
 	}
 	ft_dprintf(2, "\tMoves:\t\t%d\n", lem->path_l.moves);
