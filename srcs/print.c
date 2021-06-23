@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/05 18:29:38 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/12 13:57:46 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/23 13:33:39 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_flows(t_env *lem, t_path *tmp, int path_nb, int moves)
 	int	i;
 
 	i = -1;
-	ft_dprintf(2, "{CYAN}~~~~~~~~~~~~~~~~~~ %2d ~~~~~~~~~~~~~~~~~~{RESET}\n",
+	ft_dprintf(2, "{CYAN}~~~~~~~~~~~~~~ Moves: %2d ~~~~~~~~~~~~~~{RESET}\n",
 		moves);
 	while (++i < path_nb)
 	{
@@ -30,13 +30,10 @@ void	print_check(t_env *lem)
 {
 	ft_dprintf(2, "{GREEN}==================INFO=================={RESET}\n");
 	if (lem->min_moves != NULL)
-	{
 		ft_dprintf(2, "{YELLOW}%s{RESET}\n", lem->min_moves);
-		free(lem->min_moves);
-	}
 	ft_dprintf(2, "\tMoves:\t\t%d\n", lem->lpath.moves);
 	ft_dprintf(2, "\tAnts:\t\t%d\n", lem->ants);
-	ft_dprintf(2, "\tRooms:\t\t%d\n", lem->room_nb);
+	ft_dprintf(2, "\tRooms:\t\t%d\n", lem->room_nb - 1);
 	ft_dprintf(2, "\tLinks:\t\t%d\n", lem->links_nb);
 	ft_dprintf(2, "{GREEN}========================================{RESET}\n");
 }

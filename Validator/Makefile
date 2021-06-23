@@ -6,9 +6,17 @@
 #    By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/04 17:54:23 by nneronin          #+#    #+#              #
-#    Updated: 2021/06/10 17:01:35 by nneronin         ###   ########.fr        #
+#    Updated: 2021/06/23 12:48:22 by nneronin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+RED				:= "\e[0;31m"
+GREEN			:= "\e[0;32m"
+YELLOW			:= "\e[0;33m"
+BLUE			:= "\e[0;34m"
+MAGENTA			:= "\e[0;35m"
+CYAN			:= "\e[0;36m"
+RESET			:= "\e[0m"
 
 NAME = validator
 SOURCE = ./error.c\
@@ -30,13 +38,15 @@ LIBPF	:= -I $(LIB_DIR)/libpf $(LIB_DIR)/libpf/libpf.a
 FLAGS	:= -Wall -Wextra -Werror
 
 all: $(NAME)
+	@printf $(CYAN)"[INFO]	$(NAME) ready!\n"$(RESET)
 
 $(NAME):
 	@gcc -o $(NAME) $(SRCS) $(LIBFT) $(LIBPF)
-	@echo "$(NAME) was successfully created."
+	@printf $(GREEN)"Compiling $(NAME)\n"$(RESET)
+
 clean:
 	@/bin/rm -f $(OBJS)
-	@echo "$(NAME) was cleaned."
+	@printf $(CYAN)"[INFO]	$(NAME) cleaned\n"$(RESET)
 
 fclean: clean
 	@/bin/rm -f $(NAME)

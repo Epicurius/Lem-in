@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 16:11:12 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/12 13:57:46 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/23 13:05:25 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,7 @@ void	free_lem(t_env *lem)
 		ft_memdel((void *)&lem->lpath.paths[i]);
 	ft_memdel((void *)&lem->lpath.paths);
 	ft_memdel((void *)&lem->id_table);
+	if (lem->min_moves != NULL)
+		ft_memdel((void *)&lem->min_moves);
 	free(lem);
 }

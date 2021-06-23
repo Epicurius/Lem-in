@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 09:19:18 by nneronin          #+#    #+#             */
-/*   Updated: 2021/06/12 13:57:46 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/06/23 13:23:45 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct s_args
 {
 	bool			flows;
 	bool			info;
-	bool			full;
 	bool			queue;
 	unsigned char	format;
 }					t_args;
@@ -88,7 +87,7 @@ typedef struct s_lem_in
 	t_room			*end;
 	t_room			*start;
 	t_room			*tree;
-	t_lpath		lpath;
+	t_lpath			lpath;
 	t_args			flag;
 }					t_env;
 
