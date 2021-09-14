@@ -65,8 +65,8 @@ So when reading some of the larger maps that have 2953 rooms and 3006 links, the
 
 ## Compiling and Running the Program
 ```sh
-git clone https://github.com/Epicurius/Lem-in.git && cd Lem-in
-make && make -f Validator/Makefile
+git clone --recurse-submodules https://github.com/Epicurius/Lem-in.git
+cd Lem-in && make && make -f Validator/Makefile
 
 #	Help info for use & flags
 ./lem-in -h
