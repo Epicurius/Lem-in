@@ -12,7 +12,7 @@ There is 1 start and 1 end room.
 Your program will receive the data describing the map from the standard output
 in the following format:
 ```c
-5				//Ant amount
+5			//Ant amount
 ##start			//Next room is start room
 start 0 0		//id x y
 a 1 1
