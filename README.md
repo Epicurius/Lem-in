@@ -1,10 +1,10 @@
 ## Lem-in Project Summary
 
-The goal of this project is to find the quickest way to get X ants across the map. </n>
-Quickest way means the solution with the least number of lines (rounds).</n>
+The goal of this project is to find the quickest way to get X ants across the map. </p>
+Quickest way means the solution with the least number of lines (rounds).</p>
 Some constraints apply:
 * Only one ant per room (except for start and end).
-* Ants can only move once per round.</n>
+* Ants can only move once per round.</p>
 
 The map consists of rooms and links. Each link is connected to 2 rooms, each room can have any number of links.
 There is 1 start and 1 end room.
@@ -46,17 +46,17 @@ Example:
 
 ## The Algorithm
 
-I tried to come up with the solution my self instead of using an existing one, so the algorithm is more convoluted than it had to be.
-My algorithm starts with checking start and end rooms, which one has least amount of links.
-The amount is the theoretical highest possible path amount.
-Then is starts for start room moving to each connected room until one reaches the end room (BFS).
-It save that path that reached the end first and calculates how many moves current path configuration will take.
-If the highest possible path amount is higher that 1 it starts again.
-But this time it does not send to the room connected to start that is already used by a saved path.
-If during this BFS it travels to a room that is used in a previous path it travels backwards on the previous path and tries to exit to a free node, if not possible the current path is terminated.
-If a path that has traveled backwards on a previous path reaches the end first, the current path and the 
-backwards traveled path a spliced to make 2 separate paths.
-When the ant moving amount start to rise the optimal path configuration has been found.
+I tried to come up with the solution my self instead of using an existing one, so the algorithm is more</p>convoluted than it had to be.</p>
+My algorithm starts with checking start and end rooms, which one has least amount of links.</p>
+The amount is the theoretical highest possible path amount.</p>
+Then is starts for start room moving to each connected room until one reaches the end room (BFS).</p>
+It save that path that reached the end first and calculates how many moves current path configuration will take.</p>
+If the highest possible path amount is higher that 1 it starts again.</p>
+But this time it does not send to the room connected to start that is already used by a saved path.</p>
+If during this BFS it travels to a room that is used in a previous path it travels backwards on the previous path </p>and tries to exit to a free node, if not possible the current path is terminated.</p>
+If a path that has traveled backwards on a previous path reaches the end first, the current path and the </p>
+backwards traveled path a spliced to make 2 separate paths.</p>
+When the ant moving amount start to rise the optimal path configuration has been found.</p>
 
 ## Parsing
 
@@ -77,7 +77,7 @@ make && make -f Validator/Makefile
 
 ## Conclusion
 
-This was the first project where i learned how to use structs and lists. </n>
-I had a lot of fun with the project (especially the optimizing part), but due to a team project I had to</n>
+This was the first project where i learned how to use structs and lists. </p>
+I had a lot of fun with the project (especially the optimizing part), but due to a team project I had to</p>
 finnish the project prematurely. So the end result is not as polished as many of my other projects.
 
