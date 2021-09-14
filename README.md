@@ -11,37 +11,33 @@ There is 1 start and 1 end room.
 
 Your program will receive the data describing the map from the standard output
 in the following format:
+```c
+5				//Ant amount
+##start			//Next room is start room
+start 0 0		//id x y
+a 1 1
+b 2 1
+d 1 0
+c 2 0
+##end			//Next room is end room
+sink 3 0
+start-a			//Start room is linked to room a
+start-d
+a-d
+a-c
+a-b
+b-c
+b-sink
+d-c
+c-sink
 ```
-number_of_ants
-the_rooms
-the_links
-
-Example:
-##start
-1 23 3
-2 16 7
-#comment
-3 16 3
-4 16 5
-5 9 3
-6 1 5
-7 4 8
-##end
-0 9 5
-0-4
-0-6
-1-3
-4-3
-5-2
-3-5
-#another comment
-4-2
-2-1
-7-6
-7-2
-7-4
-6-5
-#another comment
+The result from the above map, in correct format:
+```
+L1-d L2-a 
+L1-c L2-b L3-d L4-a 
+L1-sink L3-c L2-sink L4-b L5-d 
+L3-sink L5-c L4-sink 
+L5-sink 
 ```
 
 ## The Algorithm
@@ -82,7 +78,7 @@ make && make -f Validator/Makefile
 
 ## Conclusion
 
-This was the first project where i learned how to use structs and lists. </n>
-I had a lot of fun with the project (especially the optimizing part), but due to a team project I had to</n>
-finnish the project prematurely. So the end result is not as polished as many of my other projects.
+This was the first project where i learned how to use structs and lists. <br>
+I had a lot of fun with the project (especially the optimizing part), but due to a team project I had to<br>
+finnish the project prematurely. So the end result is not as polished as many of my other projects.<br>
 
